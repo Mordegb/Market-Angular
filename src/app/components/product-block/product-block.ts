@@ -32,5 +32,6 @@ export class ProductBlock implements OnInit {
         console.info('Requisição completa'); 
       },
     });
+
   }
 }
