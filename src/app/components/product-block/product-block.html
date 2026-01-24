@@ -1,1 +1,11 @@
-<p>product-block works!</p>
+<h2>Lista de Produtos</h2>
+<ul>
+  @for (item of produtos; track item.id) {
+    <li>
+      <img [src]="item.thumbnail" [alt]="item.title" style="width: 200px;">
+      <h2>{{ item.title }}</h2>
+      <p>Preço: ${{ item.price }}</p>
+      <p>Estoque: {{ item.stock }} unidades</p>
+    </li>
+  }
+</ul>
