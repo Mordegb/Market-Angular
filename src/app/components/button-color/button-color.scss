@@ -8,5 +8,9 @@
   cursor: pointer;
   width: 100%;          
   font-weight: bold;
-  min-height: 40px;      
+  min-height: 40px;   
+  transition: .2s;  
+  &:hover{
+    background-color: #0381c0;
+  } 
 }
