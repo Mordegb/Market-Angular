@@ -11,7 +11,7 @@ export class CarrinhoService {
   adicionarAoCarrinho(produto: ProdutoProps) {
     this.itens.push(produto);
     console.log('Carrinho atual:', this.itens); 
-    alert(`${produto.title} adicionado ao carrinho!`);
+    alert(`produto adicionado ao carrinho!`);
   }
 
   obterItens() {
