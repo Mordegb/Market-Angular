@@ -1,37 +1,40 @@
 import { Component, OnInit } from '@angular/core';
-import { CommonModule } from '@angular/common'; 
+import { CommonModule } from '@angular/common';
 import { Produto } from '../../service/produto';
-import { ProdutoProps } from '../../Produto.model'; 
-
+import { ProdutoProps } from '../../Produto.model';
+import { ButtonColor } from '../button-color/button-color';
+import { CarrinhoService } from '../../service/carrinho/carrinho.service'; 
 @Component({
   selector: 'app-product-block',
-  imports: [CommonModule],
+  standalone: true,
+  imports: [CommonModule, ButtonColor],
   templateUrl: './product-block.html',
   styleUrl: './product-block.scss',
 })
 export class ProductBlock implements OnInit {
   produtos: ProdutoProps[] = [];
-  item: ProdutoProps = {} as ProdutoProps;
+
+  constructor(
+    private produtoService: Produto,     
+    private carrinhoService: CarrinhoService 
+  ) {}
 
   ngOnInit(): void {
     this.carregarDados();
   }
 
-  constructor(private Produto: Produto) {}
-
   carregarDados() {
-    this.Produto.getAll().subscribe({
-      next: (dados:any) => {
-        this.produtos = dados.products;
-        console.log(this.produtos);
+    this.produtoService.getAll().subscribe({
+      next: (dados: any) => {
+        this.produtos = dados.products; 
+        console.log('Produtos carregados:', this.produtos);
       },
-      error: (erro) => {
-        console.error('Erro ao carregar produtos', erro); 
-      },
-      complete: () => {
-        console.info('Requisição completa'); 
-      },
+      error: (erro) => console.error('Erro:', erro)
     });
+  }
 
+  comprar(item: ProdutoProps) {
+    console.log('Adicionando ao carrinho:', item);
+    this.carrinhoService.adicionarAoCarrinho(item);
   }
 }
