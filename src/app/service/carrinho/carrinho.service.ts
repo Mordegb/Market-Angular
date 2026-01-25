@@ -21,4 +21,9 @@ export class CarrinhoService {
   limparCarrinho() {
     this.itens = [];
   }
+
+  removerItem(id: number) {
+  this.itens = this.itens.filter(item => item.id !== id);
+  console.log('Item removido. Carrinho atual:', this.itens);
+}
 }

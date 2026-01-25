@@ -1,1 +1,22 @@
-<p>carrinho works!</p>
+<div class="carrinho-container">
+  <h2>Meu Carrnho</h2>
+
+  @if (itensNoCarrinho.length > 0) {
+    <ul class="lista-carrinho">
+      @for (item of itensNoCarrinho; track item.id) {
+        <li class="item-carrinho">
+          <img [src]="item.thumbnail" [alt]="item.title" width="80" />
+
+          <div class="info">
+            <h3>{{ item.title }}</h3>
+            <p>Preço: ${{ item.price }}</p>
+          </div>
+
+          <button (click)="remover(item.id!)">Remover</button>
+        </li>
+      }
+    </ul>
+  } @else {
+    <p>tem nada no carrinho</p>
+  }
+</div>
