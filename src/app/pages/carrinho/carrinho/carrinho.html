@@ -1,5 +1,5 @@
 <div class="carrinho-container">
-  <h2>Meu Carrnho</h2>
+  <h2>valor total: {{ValorTotal}}</h2>
 
   @if (itensNoCarrinho.length > 0) {
     <ul class="lista-carrinho">
@@ -9,14 +9,16 @@
 
           <div class="info">
             <h3>{{ item.title }}</h3>
-            <p>Preço: ${{ item.price }}</p>
+            <p>Preço: R${{ item.price }}</p>
           </div>
-
-          <button (click)="remover(item.id!)">Remover</button>
+          <app-button-color
+          (clicou)="remover(item.id!)"
+          [texto]="'remover'">
+          </app-button-color>
         </li>
       }
     </ul>
   } @else {
-    <p>tem nada no carrinho</p>
+    <p>carrinho ta vazio</p>
   }
 </div>
