@@ -1,1 +1,11 @@
-<p>login works!</p>
+<div class="container">
+  <p>bem vindo a pagina de login</p>
+  <form class="formulario" (ngSubmit)="fazerLogin()" >
+    <input type="text" class="email" placeholder="E-mail" name="email" [(ngModel)]="UserEmail" />
+
+    <input
+      type="password" class="senha" placeholder="Senha" name="senha" [(ngModel)]="UserPassword"
+    />
+    <button>login</button>
+  </form>
+</div>
