@@ -1,16 +1,14 @@
 <div class="container">
   <p>bem vindo a pagina de login</p>
-  <!-- no formGroup vc fala onde os inputs são correspondestes -->
-  <form class="formulario" [formGroup]="loginForm" (ngSubmit)="fazerLogin()" > 
-    <input type="text" class="email" placeholder="E-mail" formControlName="UserEmail" />
-    <input
-      type="password" class="senha" placeholder="Senha" formControlName="UserPassword"
-    />
-    @if(loginForm.invalid){
-      <button class="botaoFalse" type="submit" disabled >login</button>
-    }
-    @else {
-      <button class="botaoTrue" type="submit" >login</button>
-    }
+
+  <form class="formulario" [formGroup]="loginForm" (ngSubmit)="buscarUsuario()">
+    <input type="text"  class="email"  placeholder="E-mail" formControlName="UserEmail" />
+    <input type="password" class="senha" placeholder="Senha" formControlName="UserPassword" />
+    <button 
+      type="submit" 
+      [className]="loginForm.valid ? 'botaoTrue' : 'botaoFalse'" 
+      [disabled]="loginForm.invalid">
+      Login
+    </button>
   </form>
 </div>
