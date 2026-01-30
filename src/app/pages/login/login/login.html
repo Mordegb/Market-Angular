@@ -1,0 +1,14 @@
+<div class="container">
+  <p>bem vindo a pagina de login</p>
+
+  <form class="formulario" [formGroup]="loginForm" (ngSubmit)="buscarUsuario()">
+    <input type="text"  class="email"  placeholder="E-mail" formControlName="UserEmail" />
+    <input type="password" class="senha" placeholder="Senha" formControlName="UserPassword" />
+    <button 
+      type="submit" 
+      [className]="loginForm.valid ? 'botaoTrue' : 'botaoFalse'" 
+      [disabled]="loginForm.invalid">
+      Login
+    </button>
+  </form>
+</div>
