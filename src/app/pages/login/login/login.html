@@ -1,11 +1,16 @@
 <div class="container">
   <p>bem vindo a pagina de login</p>
-  <form class="formulario" (ngSubmit)="fazerLogin()" >
-    <input type="text" class="email" placeholder="E-mail" name="email" [(ngModel)]="UserEmail" />
-
+  <!-- no formGroup vc fala onde os inputs são correspondestes -->
+  <form class="formulario" [formGroup]="loginForm" (ngSubmit)="fazerLogin()" > 
+    <input type="text" class="email" placeholder="E-mail" formControlName="UserEmail" />
     <input
-      type="password" class="senha" placeholder="Senha" name="senha" [(ngModel)]="UserPassword"
+      type="password" class="senha" placeholder="Senha" formControlName="UserPassword"
     />
-    <button>login</button>
+    @if(loginForm.invalid){
+      <button class="botaoFalse" type="submit" disabled >login</button>
+    }
+    @else {
+      <button class="botaoTrue" type="submit" >login</button>
+    }
   </form>
 </div>
