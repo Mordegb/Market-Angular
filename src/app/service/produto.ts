@@ -1,7 +1,7 @@
 import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
-import { tap } from 'rxjs/operators';
+import { map, tap } from 'rxjs/operators';
 import { ProdutoProps } from '../Produto.model';
 
 @Injectable({
@@ -26,4 +26,5 @@ export class Produto {
       .get<ProdutoProps>(this.apiUrl)
       .pipe(tap((dados) => (this.listaProdutos = dados.products)));
   }
+
 }

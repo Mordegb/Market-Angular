@@ -1,13 +1,13 @@
 import { Component } from '@angular/core';
+import { Produto } from '../../../service/produto';
 import {
   FormsModule,
   FormControl,
   FormGroup,
   Validators,
   ReactiveFormsModule,
-} from '@angular/forms';
+} from '@angular/forms'; //meu deus muitos imports
 import { Router } from '@angular/router';
-
 import { form } from '@angular/forms/signals';
 import { UserService } from '../../../service/user/user.service';
 import { RouterLink } from '@angular/router';
@@ -19,10 +19,9 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private Userservice: UserService , private router: Router) {}
+  constructor(private Userservice: UserService , private router: Router , private produtoService:Produto) {}
 
-  loginForm = new FormGroup({
-    //vai criar as coisas do grupo que tem que validar
+  loginForm = new FormGroup({  //vai criar as coisas do grupo que tem que validar
     UserEmail: new FormControl('', [Validators.required, Validators.email]),
     UserPassword: new FormControl('', [Validators.required]),
   });
@@ -40,18 +39,18 @@ export class Login {
         const usuarioEncontrado = usuarios.find((u) => u.email === emailDigitado);
 
         if (usuarioEncontrado && usuarioEncontrado.password === senhaDigitada) {
-          console.log('deu certo o login');
-          this.router.navigate(['/home']);
+          console.log('deu certo o login' , usuarioEncontrado);
+          this.produtoService.getAll().subscribe()
+          this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
         } else {
-          alert('usuario ou senha incorretoss');
+          alert('usuario não encontrado ou casastrado');
         }
       },
     });
   }
 
   fazerLogin() {
-    if (this.loginForm.valid) {
-      //verifica se as informações estão valido
+    if (this.loginForm.valid) {  //vai criar as coisas do grupo que tem que validar
       console.log(this.loginForm.value);
       alert(this.loginForm.value);
     } else {
