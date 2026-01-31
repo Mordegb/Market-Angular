@@ -4,8 +4,7 @@
   <form class="formulario" [formGroup]="loginForm" (ngSubmit)="buscarUsuario()">
     <input type="text"  class="email"  placeholder="E-mail" formControlName="UserEmail" />
     <input type="password" class="senha" placeholder="Senha" formControlName="UserPassword" />
-    
-    <!-- troca de nome e por circusntancias e faz ele assumir um scss diferente -->
+    <!-- troca de nome e por circusntancias e faz ele assumir um scss diferente  com uma condicional-->
     <!-- e tirei aquele monte de if else -->
     <button 
       type="submit" 

@@ -19,38 +19,48 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(private Userservice: UserService , private router: Router , private produtoService:Produto) {}
 
-  loginForm = new FormGroup({  //vai criar as coisas do grupo que tem que validar
+  constructor( // puxando meus services
+    private Userservice: UserService,
+    private router: Router,
+    private produtoService: Produto, //temporario, so pra tentar ajeitar o erro da pagina home
+  ) {}
+
+  loginForm = new FormGroup({
+    //vai criar as coisas do grupo que tem que validar
     UserEmail: new FormControl('', [Validators.required, Validators.email]),
     UserPassword: new FormControl('', [Validators.required]),
   });
 
   loginSucesfull = false;
   buscarUsuario() {
-    if (this.loginForm.invalid){
+    if (this.loginForm.invalid) {
       return;
-    } 
+    }
     const emailDigitado = this.loginForm.value.UserEmail;
     const senhaDigitada = this.loginForm.value.UserPassword;
 
     this.Userservice.getAll().subscribe({
-      next: (usuarios) => {
-        const usuarioEncontrado = usuarios.find((u) => u.email === emailDigitado);
+      next: (ListaUsuarios) => { //aqui vai meu array que ta no service
+        const usuarioEncontrado = ListaUsuarios.find((u) => u.email === emailDigitado);
 
+        //depois fazer um elif para limpar so ocampo de senha
         if (usuarioEncontrado && usuarioEncontrado.password === senhaDigitada) {
-          console.log('deu certo o login' , usuarioEncontrado);
-          this.produtoService.getAll().subscribe()
+          console.log('deu certo o login', usuarioEncontrado);
+          this.produtoService.getAll().subscribe();
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
         } else {
-          alert('usuario não encontrado ou casastrado');
+          alert('usuario não encontrado ou cadastrado');
+          this.loginForm.setValue({UserEmail: '' , UserPassword: ''}) // seta os valores do input para deixar vazio
+          // this.loginForm.reset() // faz a mesma coisa que o de cima (é so uma anotação)
         }
       },
     });
   }
 
   fazerLogin() {
-    if (this.loginForm.valid) {  //vai criar as coisas do grupo que tem que validar
+    if (this.loginForm.valid) {
+      //vai criar as coisas do grupo que tem que validar
       console.log(this.loginForm.value);
       alert(this.loginForm.value);
     } else {
