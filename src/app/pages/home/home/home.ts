@@ -31,15 +31,14 @@ export class Home implements OnInit {
     this.isLoading = true; // Garante que mostre carregando ao iniciar
     this.produtoService.getAll().subscribe({
       next: (dados: any) => {
-        // Tenta pegar dados.products, se não existir, tenta pegar dados direto
-        // Isso resolve o problema caso a API retorne a lista direta
+      
         this.produtos = dados.products; 
         console.log('Produtos carregados:', this.produtos);
-        this.isLoading = false; // 2. Desativa o carregamento quando os dados chegam
+        this.isLoading = false; 
       },
       error: (erro) => {
         console.error('Erro:', erro);
-        this.isLoading = false; // 3. Desativa mesmo se der erro (para não travar)
+        this.isLoading = false; 
       }
     });
   }
