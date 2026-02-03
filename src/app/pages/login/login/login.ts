@@ -47,6 +47,7 @@ export class Login {
         //depois fazer um elif para limpar so ocampo de senha
         if (usuarioEncontrado && usuarioEncontrado.password === senhaDigitada) {
           console.log('deu certo o login', usuarioEncontrado);
+          console.log(this.loginForm.value);
           this.produtoService.getAll().subscribe();
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
         } else {
