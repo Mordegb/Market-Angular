@@ -54,7 +54,7 @@ export class Login {
         }
         else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
           this.loginForm.patchValue({ UserPassword: '' }); //posso setar o valor de uma so coisa, o setValue pede tudo
-          alert('usuario encontrado mas a senha está incorreta');
+          alert('usuario encontrado, mas a senha está incorreta');
         }
         else {
           alert('usuario não encontrado ou cadastrado');
