@@ -1,2 +1,27 @@
+@if (isLoading) {
+  <div class="loading-container">
+    <p>Carregando produtos... <br>se demorar, clique em "Market polo"</p>
+  </div>
+} 
 
-<app-product-block></app-product-block>
+@else {
+  <ul class="container-produtos">
+    @for (item of produtos; track item.id) {
+      <li class="card-produto">
+        <img [src]="item.thumbnail" [alt]="item.title">
+
+        <div class="info">
+          <h2>{{ item.title }}</h2>
+          <p class="preco">Preço: R${{ item.price }}</p>
+          <p class="estoque">Estoque: {{ item.stock }} em esqtoque</p>
+
+          <app-button-color 
+            [texto]="'Adicionar ao Carrinho'" 
+            (clicou)="comprar(item)" >
+          </app-button-color>
+        </div>
+      </li>
+    }
+
+  </ul>
+}
