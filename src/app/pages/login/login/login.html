@@ -6,7 +6,7 @@
     <input type="password" class="senha" placeholder="Senha" formControlName="UserPassword" />
     <!-- troca de nome e por circusntancias e faz ele assumir um scss diferente  com uma condicional-->
     <!-- e tirei aquele monte de if else -->
-    <button routerLink="/home"
+    <button
       type="submit" 
       [className]="loginForm.valid ? 'botaoTrue' : 'botaoFalse'" 
       [disabled]="loginForm.invalid">
