@@ -19,8 +19,8 @@ import { RouterLink } from '@angular/router';
   styleUrl: './login.scss',
 })
 export class Login {
-
-  constructor( // puxando meus services
+  constructor(
+    // puxando meus services
     private Userservice: UserService,
     private router: Router,
     private produtoService: Produto, //temporario, so pra tentar ajeitar o erro da pagina home
@@ -41,7 +41,8 @@ export class Login {
     const senhaDigitada = this.loginForm.value.UserPassword;
 
     this.Userservice.getAll().subscribe({
-      next: (ListaUsuarios) => { //aqui vai meu array que ta no service
+      next: (ListaUsuarios) => {
+        //aqui vai meu array que ta no service
         const usuarioEncontrado = ListaUsuarios.find((u) => u.email === emailDigitado);
 
         //depois fazer um elif para limpar so ocampo de senha
@@ -50,7 +51,12 @@ export class Login {
           console.log(this.loginForm.value);
           this.produtoService.getAll().subscribe();
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
-        } else {
+        }
+        else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
+          this.loginForm.patchValue({ UserPassword: '' }); //posso setar o valor de uma so coisa, o setValue pede tudo
+          alert('senha incorreta');
+        }
+        else {
           alert('usuario não encontrado ou cadastrado');
           this.loginForm.setValue({UserEmail: '' , UserPassword: ''}) // seta os valores do input para deixar vazio
           // this.loginForm.reset() // faz a mesma coisa que o de cima (é so uma anotação)
