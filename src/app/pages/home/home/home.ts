@@ -14,8 +14,8 @@ import { signal } from '@angular/core';
   styleUrl: './home.scss',
 })
 export class Home implements OnInit {
-  produtos: ProdutoProps[] = [];
-  isLoading!: boolean;
+  produtos = signal<ProdutoProps[]>([])
+  isLoading = signal<boolean>(true)
 
   constructor(
     private produtoService: Produto,
@@ -23,22 +23,20 @@ export class Home implements OnInit {
   ) {}
 
   ngOnInit(): void {
-    this.isLoading
     this.carregarDados();
   }
 
   carregarDados() {
-    this.isLoading = true; // Garante que mostre carregando ao iniciar
+    this.isLoading.set(true) // é pra mostrar que ta carregando
     this.produtoService.getAll().subscribe({
       next: (dados: any) => {
-      
-        this.produtos = dados.products; 
-        console.log('Produtos carregados:', this.produtos);
-        this.isLoading = false; 
+        this.produtos.set(dados.products)
+        console.log('Produtos carregados:', this.produtos());
+        this.isLoading.set(false) // muda para false com o .set, por causa do signal
       },
       error: (erro) => {
         console.error('Erro:', erro);
-        this.isLoading = false; 
+        this.isLoading.set(false)
       }
     });
   }
