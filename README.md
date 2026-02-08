@@ -1,10 +1,10 @@
 # MarketPolo
 
-##Para entrar na pagina de login:
+## Para entrar na pagina de login:
 
-#usuario:"emily.johnson@x.dummyjson.com"
+# usuario:"emily.johnson@x.dummyjson.com"
 
-#Senha:"emilyspass"
+# Senha:"emilyspass"
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 ## Development server
