@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { Produto } from '../../../service/produto'; // Ajuste o caminho se necessário
 import { ProdutoProps } from '../../../Produto.model'; // Ajuste o caminho se necessário
 import { ButtonColor } from '../../../components/button-color/button-color';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { signal } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -21,6 +22,8 @@ export class Home implements OnInit {
     private produtoService: Produto,
     private carrinhoService: CarrinhoService
   ) {}
+
+  toast = inject(ToastrService)
 
   ngOnInit(): void {
     this.carregarDados();
@@ -42,7 +45,13 @@ export class Home implements OnInit {
   }
 
   comprar(item: ProdutoProps) {
-    console.log('Adicionando ao carrinho:', item);
     this.carrinhoService.adicionarAoCarrinho(item);
+    this.toast.success('Adiocionado ao carrinho','',{
+      timeOut:3500,
+      progressBar:true,
+      
+      positionClass: 'toast-top-left'
+
+    })
   }
 }
