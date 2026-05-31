@@ -49,8 +49,7 @@ export class Home implements OnInit {
     this.toast.success('Adiocionado ao carrinho','',{
       timeOut:3500,
       progressBar:true,
-      
-      positionClass: 'toast-top-left'
+      positionClass: 'toast-top-right'
 
     })
   }

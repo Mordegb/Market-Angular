@@ -1,8 +1,9 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { ProdutoProps } from '../../../Produto.model';
 import { ButtonColor } from '../../../components/button-color/button-color';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-carrinho',
@@ -15,6 +16,8 @@ export class Carrinho {
   constructor(private carrinhoService: CarrinhoService) {
     this.calcularTotal() // pra começar assim que o componente abri ja que a logica ta aqui
   }
+
+  toats = inject(ToastrService)
   
   ValorTotal: number = 0;
   calcularTotal(){
@@ -39,5 +42,11 @@ export class Carrinho {
     this.carrinhoService.removerItem(id);
     this.atualizarLista(); 
     this.calcularTotal()
+    this.toats.warning('Produto removido','',{
+      timeOut:4000,
+      progressBar:true,
+      positionClass:'toast-bottom-right'
+    })
+
   }
 }
