@@ -34,11 +34,11 @@ export class Home implements OnInit {
     this.produtoService.getAll().subscribe({
       next: (dados: any) => {
         this.produtos.set(dados.products)
-        console.log('Produtos carregados:', this.produtos());
+        // console.log('Produtos carregados:', this.produtos());
         this.isLoading.set(false) // muda para false com o .set, por causa do signal
       },
       error: (erro) => {
-        console.error('Erro:', erro);
+        // console.error('Erro:', erro);
         this.isLoading.set(false)
       }
     });
@@ -49,7 +49,7 @@ export class Home implements OnInit {
     this.toast.success('Adiocionado ao carrinho','',{
       timeOut:3500,
       progressBar:true,
-      positionClass: 'toast-top-right'
+      positionClass: 'toast-bottom-right'
 
     })
   }
