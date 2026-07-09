@@ -1,7 +1,7 @@
 import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Produto } from '../../../service/produto'; // Ajuste o caminho se necessário
-import { ProdutoProps } from '../../../Produto.model'; // Ajuste o caminho se necessário
+import { Produto } from '../../../service/produto/produto.service'; 
+import { ProdutoProps } from '../../../Produto.model'; 
 import { ButtonColor } from '../../../components/button-color/button-color';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { signal } from '@angular/core';

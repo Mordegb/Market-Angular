@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Produto } from '../../../service/produto';
+import { Produto } from '../../../service/produto/produto.service';
 import {
   FormsModule,
   FormControl,

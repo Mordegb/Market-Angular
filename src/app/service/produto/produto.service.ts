@@ -2,7 +2,7 @@ import { inject, Injectable } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
-import { ProdutoProps } from '../Produto.model';
+import { ProdutoProps } from '../../Produto.model';
 
 export interface APIResponse {
   products: ProdutoProps[];
