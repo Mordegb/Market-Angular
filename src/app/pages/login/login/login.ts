@@ -1,5 +1,5 @@
-import { Component } from '@angular/core';
-import { Produto } from '../../../service/produto';
+import { Component, inject } from '@angular/core';
+import { Produto } from '../../../service/produto/produto.service';
 import {
   FormsModule,
   FormControl,
@@ -11,6 +11,7 @@ import { Router } from '@angular/router';
 import { form } from '@angular/forms/signals';
 import { UserService } from '../../../service/user/user.service';
 import { RouterLink } from '@angular/router';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-login',
@@ -25,6 +26,7 @@ export class Login {
     private router: Router,
     private produtoService: Produto, //temporario, so pra tentar ajeitar o erro da pagina home
   ) {}
+  toast = inject(ToastrService);
 
   loginForm = new FormGroup({
     //vai criar as coisas do grupo que tem que validar
@@ -51,14 +53,19 @@ export class Login {
           console.log(this.loginForm.value);
           this.produtoService.getAll().subscribe();
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
-        }
-        else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
+        } else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
           this.loginForm.patchValue({ UserPassword: '' }); //posso setar o valor de uma so coisa, o setValue pede tudo
-          alert('usuario encontrado, mas a senha está incorreta');
-        }
-        else {
-          alert('usuario não encontrado ou cadastrado');
-          this.loginForm.setValue({UserEmail: '' , UserPassword: ''}) // seta os valores do input para deixar vazio
+          this.toast.warning('senha incorreta','', {
+            timeOut: 3000,
+            progressBar: true
+          });
+
+        } else {
+          this.toast.error('usuario inexistente','',{
+            timeOut:4000,
+            progressBar:true
+          })
+          this.loginForm.setValue({ UserEmail: '', UserPassword: '' }); // seta os valores do input para deixar vazio
           // this.loginForm.reset() // faz a mesma coisa que o de cima (é so uma anotação)
         }
       },

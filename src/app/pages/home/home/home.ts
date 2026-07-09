@@ -1,10 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, inject, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { Produto } from '../../../service/produto'; // Ajuste o caminho se necessário
-import { ProdutoProps } from '../../../Produto.model'; // Ajuste o caminho se necessário
+import { Produto } from '../../../service/produto/produto.service'; 
+import { ProdutoProps } from '../../../Produto.model'; 
 import { ButtonColor } from '../../../components/button-color/button-color';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { signal } from '@angular/core';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-home',
@@ -22,6 +23,8 @@ export class Home implements OnInit {
     private carrinhoService: CarrinhoService
   ) {}
 
+  toast = inject(ToastrService)
+
   ngOnInit(): void {
     this.carregarDados();
   }
@@ -31,18 +34,23 @@ export class Home implements OnInit {
     this.produtoService.getAll().subscribe({
       next: (dados: any) => {
         this.produtos.set(dados.products)
-        console.log('Produtos carregados:', this.produtos());
+        // console.log('Produtos carregados:', this.produtos());
         this.isLoading.set(false) // muda para false com o .set, por causa do signal
       },
       error: (erro) => {
-        console.error('Erro:', erro);
+        // console.error('Erro:', erro);
         this.isLoading.set(false)
       }
     });
   }
 
   comprar(item: ProdutoProps) {
-    console.log('Adicionando ao carrinho:', item);
     this.carrinhoService.adicionarAoCarrinho(item);
+    this.toast.success('Adiocionado ao carrinho','',{
+      timeOut:3500,
+      progressBar:true,
+      positionClass: 'toast-bottom-right'
+
+    })
   }
 }
