@@ -6,11 +6,12 @@ import { ButtonColor } from '../../../components/button-color/button-color';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { signal } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
+import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonColor],
+  imports: [CommonModule, ButtonColor,RouterLink],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })
@@ -52,5 +53,8 @@ export class Home implements OnInit {
       positionClass: 'toast-bottom-right'
 
     })
+    if(item.stock !== undefined){
+      item.stock -= 1
+    }
   }
 }

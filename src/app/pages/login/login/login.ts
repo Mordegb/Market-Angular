@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Produto } from '../../../service/produto/produto.service';
+import { ProdutoService} from '../../../service/produto/produto.service';
 import {
   FormsModule,
   FormControl,
@@ -24,7 +24,7 @@ export class Login {
     // puxando meus services
     private Userservice: UserService,
     private router: Router,
-    private produtoService: Produto, //temporario, so pra tentar ajeitar o erro da pagina home
+    private produtoService: ProdutoService, //temporario, so pra tentar ajeitar o erro da pagina home
   ) {}
   toast = inject(ToastrService);
 
