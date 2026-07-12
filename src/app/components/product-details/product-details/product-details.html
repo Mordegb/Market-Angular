@@ -5,13 +5,15 @@
     <p>Não foi possível encontrar esse produto.</p>
     <app-button-color [texto]="'Voltar para Home'" (clicou)="voltar()"></app-button-color>
   </div>
-} @else if (produto(); as produto) { <!-- //o as dis como vamos chamar as instancias do objeto digamos assim -->
+} @else if (produto(); as produto) { <!-- //o as diz como vamos chamar as instancias do objeto digamos assim -->
   <div class="produto-detalhe-container">
     <!-- <button class="botao-voltar" (click)="voltar()">Voltar</button> -->
     <div class="produto-conteudo">
       <div class="galeria">
         <img [src]="produto.thumbnail" [alt]="produto.title" class="imagem-principal" />
       </div>
+      <app-button-color [texto]="'>'" (clicou)="nextProduct()"></app-button-color>
+      <app-button-color [texto]="'<'" (clicou)="beforeProduct()"></app-button-color>
       <div class="info-detalhada">
           <h1>{{ produto.title }}</h1>
           <p class="categoria"> categoria: {{ produto.category }}</p>
