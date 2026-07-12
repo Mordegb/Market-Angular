@@ -5,7 +5,6 @@ import { ProdutoProps } from '../../../Produto.model';
 import { ButtonColor } from '../../button-color/button-color';
 import { CarrinhoService} from '../../../service/carrinho/carrinho.service';
 import { ActivatedRoute , Router} from '@angular/router';
-import { RouterLink } from '@angular/router';
 
 @Component({
   selector: 'app-product-details',
