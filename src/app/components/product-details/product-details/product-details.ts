@@ -62,7 +62,7 @@ export class ProductDetails implements OnInit {
     }
   }
 
-  beforeProduct(){
+  previosuProduct(){
     const item = this.produto()
     if(item?.id !== undefined){
       // this.carregarProduto(item.id -= 1)

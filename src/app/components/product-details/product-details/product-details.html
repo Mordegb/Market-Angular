@@ -13,7 +13,7 @@
         <img [src]="produto.thumbnail" [alt]="produto.title" class="imagem-principal" />
       </div>
       <app-button-color [texto]="'>'" (clicou)="nextProduct()"></app-button-color>
-      <app-button-color [texto]="'<'" (clicou)="beforeProduct()"></app-button-color>
+      <app-button-color [texto]="'<'" (clicou)="previosuProduct()"></app-button-color>
       <div class="info-detalhada">
           <h1>{{ produto.title }}</h1>
           <p class="categoria"> categoria: {{ produto.category }}</p>
