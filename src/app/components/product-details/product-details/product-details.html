@@ -1,5 +1,7 @@
 @if (isLoading()) {
-  <div class="status-container"><p>Carregando produto...</p></div>
+  <div class="status-container">
+    <span class="carregando"></span>
+  </div>
 } @else if (asError()) {
   <div class="status-container">
     <p>Não foi possível encontrar esse produto.</p>
