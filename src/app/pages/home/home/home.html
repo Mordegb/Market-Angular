@@ -1,8 +1,7 @@
 @if (isLoading()) {
-  <div class="loading-container">
-    <p>Carregando produtos... <br />se demorar, clique em "Market polo"</p>
+   <div class="loading-container">
+    <span class="carregando"></span>
   </div>
-
 } @else {
   <ul class="container-produtos">
     @for (item of produtos(); track item.id) {

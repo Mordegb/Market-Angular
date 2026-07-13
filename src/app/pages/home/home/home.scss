@@ -8,13 +8,31 @@
 
 .loading-container {
   display: flex;
-  justify-content: center;
+  flex-direction: column;
   align-items: center;
-  height: 50vh;
-  font-size: 1.5rem;
-  color: #555;
-  font-weight: bold;
-  white-space: pre-line;
+  justify-content: center;
+  min-height: calc(100vh - 70px); 
+  gap: 16px;
+
+  span.carregando {
+    width: 60px;
+    height: 60px;
+    background-color: transparent;
+    display: block;
+    border: 7px solid #039ae5;
+    border-top: 7px solid transparent;
+    border-radius: 50%;
+    animation: rotacao 1s linear infinite;
+
+    @keyframes rotacao {
+      from {
+        transform: rotate(0deg);
+      }
+      to {
+        transform: rotate(360deg);
+      }
+    }
+  }
 }
 
 .card-produto {
