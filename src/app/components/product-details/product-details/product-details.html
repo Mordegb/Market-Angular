@@ -24,7 +24,7 @@
         <p class="estoque">{{ produto.stock }} exemplares em estoque.</p>
         <app-button-color
           [texto]="'adicionar ao Carrinho'"
-          (clicou)="adicionarAoCarrinho()"
+          (clicou)="adicionarAoCarrinho(produto)"
         ></app-button-color>
       </div>
     </div>

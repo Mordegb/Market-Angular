@@ -1,86 +1,95 @@
-import { Component, inject, OnInit,signal } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProdutoService } from '../../../service/produto/produto.service';
 import { ProdutoProps } from '../../../Produto.model';
 import { ButtonColor } from '../../button-color/button-color';
-import { CarrinhoService} from '../../../service/carrinho/carrinho.service';
-import { ActivatedRoute , Router} from '@angular/router';
+import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
+import { ActivatedRoute, Router } from '@angular/router';
 import { LoadingAnimate } from '../../loadingAnimate/loading-animate/loading-animate';
+import { ToastrService } from 'ngx-toastr';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule,ButtonColor,LoadingAnimate],
+  imports: [CommonModule, ButtonColor, LoadingAnimate],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss',
 })
 export class ProductDetails implements OnInit {
+  produto = signal<ProdutoProps | null>(null);
+  isLoading = signal<boolean>(false);
+  asError = signal<boolean>(false);
 
-  produto = signal<ProdutoProps|null>(null)
-  isLoading = signal<boolean>(false)
-  asError = signal<boolean>(false)
-
-  private actvRoute = inject(ActivatedRoute)
-  private router = inject(Router)
-  private produtoService = inject(ProdutoService)
-  private carrinhoService = inject(CarrinhoService)
-
+  private actvRoute = inject(ActivatedRoute);
+  private router = inject(Router);
+  private produtoService = inject(ProdutoService);
+  private carrinhoService = inject(CarrinhoService);
+  private toast = inject(ToastrService);
 
   ngOnInit(): void {
-    this.actvRoute.paramMap.subscribe((params) =>{
+    this.actvRoute.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));
-      if(id){
-        this.carregarProduto(id)
+      if (id) {
+        this.carregarProduto(id);
       }
-    })
+    });
   }
 
-  carregarProduto(id:number){
-    this.isLoading.set(true)
-    this.asError.set(false)
+  carregarProduto(id: number) {
+    this.isLoading.set(true);
+    this.asError.set(false);
 
     this.produtoService.getSingle(id).subscribe({
-      next: (dados) =>{
+      next: (dados) => {
         this.produto.set(dados);
-        this.isLoading.set(false)
+        this.isLoading.set(false);
       },
-      error:(erro) =>{
-        console.error(erro)
-        this.asError.set(true)
-        this.isLoading.set(false)
-      }
-    })
+      error: (erro) => {
+        console.error(erro);
+        this.asError.set(true);
+        this.isLoading.set(false);
+      },
+    });
   }
 
-  navigation(id:number){
-  this.router.navigate(['/product',id])
+  navigation(id: number) {
+    this.router.navigate(['/product', id]);
   }
 
-  nextProduct(){
-    const item = this.produto()
-    if(item?.id !== undefined){
+  nextProduct() {
+    const item = this.produto();
+    if (item?.id !== undefined) {
       // this.carregarProduto(item.id += 1)
-      this.navigation(item.id += 1)
+      this.navigation((item.id += 1));
     }
   }
 
-  previosuProduct(){
-    const item = this.produto()
-    if(item?.id !== undefined){
+  previosuProduct() {
+    const item = this.produto();
+    if (item?.id !== undefined) {
       // this.carregarProduto(item.id -= 1)
-      this.navigation(item.id -= 1)
+      this.navigation((item.id -= 1));
     }
   }
 
-
-  adicionarAoCarrinho(){
-    const item = this.produto()
-    if(item){
-      this.carrinhoService.adicionarAoCarrinho(item)
-    }
-    if(item?.stock !== undefined){
-      item.stock -= 1
+  adicionarAoCarrinho(item: ProdutoProps) {
+    if ((item.stock ?? 0) > 0) {
+      this.carrinhoService.adicionarAoCarrinho(item);
+      this.toast.success('Adiocionado ao carrinho', '', {
+        timeOut: 3500,
+        progressBar: true,
+        positionClass: 'toast-bottom-right',
+      });
+      item.stock! -= 1;
+    } else {
+      this.toast.warning('produto ja esgotado', '', {
+        timeOut: 3500,
+        progressBar: true,
+        positionClass: 'toast-top-right',
+      });
     }
   }
 
-  voltar() { this.router.navigate(['/home']); }
+  voltar() {
+    this.router.navigate(['/home']);
+  }
 }
