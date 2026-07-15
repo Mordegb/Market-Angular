@@ -7,11 +7,12 @@ import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { signal } from '@angular/core';
 import { ToastrService } from 'ngx-toastr';
 import { RouterLink } from '@angular/router';
+import { LoadingAnimate } from '../../../components/loadingAnimate/loading-animate/loading-animate';
 
 @Component({
   selector: 'app-home',
   standalone: true,
-  imports: [CommonModule, ButtonColor,RouterLink],
+  imports: [CommonModule, ButtonColor,RouterLink,LoadingAnimate],
   templateUrl: './home.html',
   styleUrl: './home.scss',
 })

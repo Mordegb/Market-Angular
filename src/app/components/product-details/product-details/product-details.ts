@@ -5,10 +5,11 @@ import { ProdutoProps } from '../../../Produto.model';
 import { ButtonColor } from '../../button-color/button-color';
 import { CarrinhoService} from '../../../service/carrinho/carrinho.service';
 import { ActivatedRoute , Router} from '@angular/router';
+import { LoadingAnimate } from '../../loadingAnimate/loading-animate/loading-animate';
 
 @Component({
   selector: 'app-product-details',
-  imports: [CommonModule,ButtonColor],
+  imports: [CommonModule,ButtonColor,LoadingAnimate],
   templateUrl: './product-details.html',
   styleUrl: './product-details.scss',
 })

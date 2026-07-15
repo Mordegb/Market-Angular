@@ -1,7 +1,5 @@
 @if (isLoading()) {
-   <div class="loading-container">
-    <span class="carregando"></span>
-  </div>
+   <app-loading-animate color="#d0014d" ></app-loading-animate>
 } @else {
   <ul class="container-produtos">
     @for (item of produtos(); track item.id) {
