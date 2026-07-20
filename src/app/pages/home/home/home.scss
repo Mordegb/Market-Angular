@@ -4,6 +4,7 @@
   display: grid;
   grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
   gap: 20px; 
+  background-color: var(--primaryBG);
 }
 
 .loading-container {
@@ -63,6 +64,6 @@
 
 .preco {
   font-weight: bold;
-  color: rgb(1, 156, 1);
+  color: var(--priceProduct);
   font-size: 1.1rem;
 }

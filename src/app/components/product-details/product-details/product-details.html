@@ -3,29 +3,62 @@
 } @else if (asError()) {
   <div class="status-container">
     <p>Não foi possível encontrar esse produto.</p>
-    <app-button-color [texto]="'Voltar para Home'" (clicou)="voltar()"></app-button-color>
+    <div class="botao-principal">
+      <app-button-color [texto]="'voltar para home'" (clicou)="voltar()"></app-button-color>
+    </div>
   </div>
-} @else if (produto(); as produto) { <!-- //o as diz como vamos chamar as instancias do objeto digamos assim -->
+} @else if (produto(); as produto) {
   <div class="produto-detalhe-container">
-    <!-- <button class="botao-voltar" (click)="voltar()">Voltar</button> -->
     <div class="produto-conteudo">
-      <div class="galeria">
-        <img [src]="produto.thumbnail" [alt]="produto.title" class="imagem-principal" />
+      <div class="coluna-imagem">
+        <div class="galeria">
+          <img [src]="produto.thumbnail" [alt]="produto.title" class="imagem-principal" />
+        </div>
+
+        <div class="nav-produto">
+          <app-button-color class="nav-seta" [texto]="'<'" (clicou)="previousProduct()"
+            ><</app-button-color
+          >
+          <app-button-color class="nav-seta" [texto]="'>'" (clicou)="nextProduct()"
+            ><</app-button-color
+          >
+        </div>
       </div>
-      <app-button-color [texto]="'>'" (clicou)="nextProduct()"></app-button-color>
-      <app-button-color [texto]="'<'" (clicou)="previosuProduct()"></app-button-color>
+
       <div class="info-detalhada">
-          <h1>{{ produto.title }}</h1>
-          <p class="categoria"> categoria: {{ produto.category }}</p>
-          <p class="marca">Marca: {{ produto.brand }}</p>
-        <p class="preco"> preço: R${{ produto.price }}</p>
-          <p class="avaliacao"> avaliação: ⭐{{ produto.rating }}</p>
+        <h1 class="titulo">{{ produto.title }}</h1>
+        <span class="categoria">{{ produto.category }}</span>
+
+        <div class="meta-row">
+          <span class="marca">{{ produto.brand }}</span>
+          <span class="separador">·</span>
+          <span class="avaliacao"> <span class="estrela">★</span>{{ produto.rating }} </span>
+        </div>
+
+        <p class="preco">R$ {{ produto.price }}</p>
+
         <p class="descricao">{{ produto.description }}</p>
-        <p class="estoque">{{ produto.stock }} exemplares em estoque.</p>
-        <app-button-color
-          [texto]="'adicionar ao Carrinho'"
-          (clicou)="adicionarAoCarrinho(produto)"
-        ></app-button-color>
+
+        @if (produto.stock === 0) {
+          <p class="estoque estoque--esgotado">
+            <span class="estoque-dot"></span> Produto esgotado
+          </p>
+        } @else if (produto.stock! <= 10) {
+          <p class="estoque estoque--baixo">
+            <span class="estoque-dot"></span> Últimas {{ produto.stock }} unidades
+          </p>
+        } @else {
+          <p class="estoque estoque--disponivel">
+            <span class="estoque-dot"></span> Em estoque · {{ produto.stock }} unidades
+          </p>
+        }
+
+        <div class="botao-principal">
+          <app-button-color
+            [texto]="'Adicionar ao Carrinho'"
+            (clicou)="adicionarAoCarrinho(produto)"
+          ></app-button-color>
+        </div>
       </div>
     </div>
   </div>
