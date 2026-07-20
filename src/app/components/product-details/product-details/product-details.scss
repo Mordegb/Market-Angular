@@ -32,28 +32,6 @@
   }
 }
 
-.botao-principal {
-  ::ng-deep button {
-    width: 100%;
-    border: none;
-    padding: 16px 24px;
-    font-family: inherit;
-    font-weight: 600;
-    font-size: 0.98rem;
-    letter-spacing: 0.01em;
-
-    &:hover {
-      transform: translateY(-2px);
-      box-shadow: 0 8px 20px -8px rgba(31, 75, 63, 0.35);
-    }
-
-    &:focus-visible {
-      outline: 2px solid var(--primary);
-      outline-offset: 2px;
-    }
-  }
-}
-
 .produto-detalhe-container {
   padding: 40px 24px 60px;
   background-color: var(--primaryBG);
@@ -120,6 +98,7 @@
   }
 }
 
+
 .info-detalhada {
   display: flex;
   flex-direction: column;
@@ -183,7 +162,7 @@
   .descricao {
     color: var(--text-muted);
     line-height: 1.6;
-    font-size: 0.96rem;
+    font-size: 1.2rem;
     margin-bottom: 20px;
     max-width: 46ch;
   }
@@ -215,6 +194,29 @@
     &--esgotado {
       color: #b84a3e;
       .estoque-dot { background:#b84a3e; }
+    }
+  }
+}
+
+
+.botao-principal {
+  ::ng-deep button {
+    width: 100%;
+    border: none;
+    padding: 16px 24px;
+    font-family: inherit;
+    font-weight: 600;
+    font-size: 0.98rem;
+    letter-spacing: 0.01em;
+
+    &:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 20px -8px rgba(31, 75, 63, 0.35);
+    }
+
+    &:focus-visible {
+      outline: 2px solid var(--primary);
+      outline-offset: 2px;
     }
   }
 }
