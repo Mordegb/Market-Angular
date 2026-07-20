@@ -14,7 +14,7 @@ export interface APIResponse {
 @Injectable({
   providedIn: 'root',
 })
-export class Produto {
+export class ProdutoService {
   private apiUrl = 'https://dummyjson.com/products';
   private http = inject(HttpClient);
 

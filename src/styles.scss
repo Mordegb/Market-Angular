@@ -2,9 +2,7 @@
 
 @import 'ngx-toastr/toastr';
 
-%input-base {
-  border: 1px solid #000000;
-  border-radius: 10px;
-  outline: none;
-  font-size: 16px;
+:root {
+  --primaryBG: #efeff6;
+  --priceProduct: #068906;
 }

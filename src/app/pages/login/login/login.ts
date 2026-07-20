@@ -1,5 +1,5 @@
 import { Component, inject } from '@angular/core';
-import { Produto } from '../../../service/produto/produto.service';
+import { ProdutoService} from '../../../service/produto/produto.service';
 import {
   FormsModule,
   FormControl,
@@ -24,7 +24,6 @@ export class Login {
     // puxando meus services
     private Userservice: UserService,
     private router: Router,
-    private produtoService: Produto, //temporario, so pra tentar ajeitar o erro da pagina home
   ) {}
   toast = inject(ToastrService);
 
@@ -51,7 +50,6 @@ export class Login {
         if (usuarioEncontrado && usuarioEncontrado.password === senhaDigitada) {
           console.log('deu certo o login', usuarioEncontrado);
           console.log(this.loginForm.value);
-          this.produtoService.getAll().subscribe();
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
         } else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
           this.loginForm.patchValue({ UserPassword: '' }); //posso setar o valor de uma so coisa, o setValue pede tudo
