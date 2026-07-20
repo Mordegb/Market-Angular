@@ -2,10 +2,10 @@ import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { ProdutoService } from '../../../service/produto/produto.service';
 import { ProdutoProps } from '../../../Produto.model';
-import { ButtonColor } from '../../button-color/button-color';
+import { ButtonColor } from '../../../components/button-color/button-color';
 import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
 import { ActivatedRoute, Router } from '@angular/router';
-import { LoadingAnimate } from '../../loadingAnimate/loading-animate/loading-animate';
+import { LoadingAnimate } from '../../../components/loadingAnimate/loading-animate/loading-animate';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

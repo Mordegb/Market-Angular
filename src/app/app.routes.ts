@@ -2,7 +2,7 @@ import { Routes } from '@angular/router';
 import { Home } from './pages/home/home/home';
 import { Carrinho } from './pages/carrinho/carrinho/carrinho';
 import { Login } from './pages/login/login/login';
-import { ProductDetails } from './components/product-details/product-details/product-details';
+import { ProductDetails } from './pages/product-details/product-details/product-details';
 
 export const routes: Routes = [
     {path:'' ,redirectTo:'login',pathMatch:'full'},
