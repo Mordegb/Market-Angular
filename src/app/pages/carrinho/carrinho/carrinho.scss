@@ -4,7 +4,7 @@
   gap: 20px;
   border-bottom: 1px solid #ddd;
   padding: 15px 0;
-  
+
   img {
     border-radius: 8px;
     object-fit: cover;
@@ -13,4 +13,51 @@
   .info {
     flex-grow: 1;
   }
+}
+
+.prices {
+  margin-top:10px ;
+  margin-bottom:-10px ;
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+
+  h2 {
+    margin: 0;
+  }
+
+  .value {
+    color: var(--priceProduct);
+  }
+}
+
+.quantidade-controle {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+
+  button {
+    width: 28px;
+    height: 28px;
+    border-radius: 4px;
+    border: 1px solid #ccc;
+    background: white;
+    cursor: pointer;
+  }
+}
+
+.price-details {
+  color: var(--priceProduct);
+  font-weight: 600;
+}
+
+.calculando {
+  color: #888;
+  font-style: italic;
+}
+
+.erro-api {
+  color: #b84a3e;
+  font-size: 0.9rem;
 }

@@ -73,7 +73,7 @@ export class ProductDetails implements OnInit {
 
   adicionarAoCarrinho(item: ProdutoProps) {
     if ((item.stock ?? 0) > 0) {
-      this.carrinhoService.adicionarAoCarrinho(item);
+      this.carrinhoService.addToCart(item);
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
