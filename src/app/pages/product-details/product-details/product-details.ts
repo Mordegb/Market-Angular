@@ -51,6 +51,10 @@ export class ProductDetails implements OnInit {
     });
   }
 
+  getStock(id: number) {
+    return this.produtoService.getStock(id);
+  }
+
   navigation(id: number) {
     this.router.navigate(['/product', id]);
   }
@@ -74,12 +78,12 @@ export class ProductDetails implements OnInit {
   adicionarAoCarrinho(item: ProdutoProps) {
     if ((item.stock ?? 0) > 0) {
       this.carrinhoService.addToCart(item);
+      this.produtoService.uptadeStock(item.id!,(item.stock! - 1))
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
         positionClass: 'toast-bottom-right',
       });
-      item.stock! -= 1;
     } else {
       this.toast.warning('produto ja esgotado', '', {
         timeOut: 3500,

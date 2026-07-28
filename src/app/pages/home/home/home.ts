@@ -20,15 +20,16 @@ export class Home implements OnInit {
   produtos = signal<ProdutoProps[]>([]);
   isLoading = signal<boolean>(true);
 
-  constructor(
-    private produtoService: ProdutoService,
-    private carrinhoService: CarrinhoService,
-  ) {}
-
-  toast = inject(ToastrService);
+  private carrinhoService = inject(CarrinhoService)
+  private produtoService = inject(ProdutoService)
+  private toast = inject(ToastrService);
 
   ngOnInit(): void {
     this.carregarDados();
+  }
+
+  getStock(id:number){
+    return this.produtoService.getStock(id)
   }
 
   carregarDados() {
@@ -49,12 +50,12 @@ export class Home implements OnInit {
   comprar(item: ProdutoProps) {
     if ((item.stock ?? 0) > 0) {
       this.carrinhoService.addToCart(item);
+      this.produtoService.uptadeStock(item.id!,(item.stock! - 1))
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
         positionClass: 'toast-bottom-right',
       });
-      item.stock! -= 1;
     } else {
       this.toast.warning('produto ja esgotado', '', {
         timeOut: 3500,
