@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { CarrinhoService, ItemCarrinho ,priceValues} from '../../../service/carrinho/carrinho.service';
 import { ButtonColor } from '../../../components/button-color/button-color';
 import { ToastrService } from 'ngx-toastr';
+import { ProdutoService } from '../../../service/produto/produto.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -11,12 +12,12 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './carrinho.scss',
 })
 export class Carrinho implements OnInit {
-  private service = inject(CarrinhoService);
+  private carrinhoService = inject(CarrinhoService);
   private toats = inject(ToastrService);
+  private produtoService = inject(ProdutoService)
   itensNoCarrinho: ItemCarrinho[] = [];
-  isLoading = this.service.isLoading
-  state = this.service.ApiState
-  calculado = this.service.calculedValue
+  isLoading = this.carrinhoService.isLoading
+  state = this.carrinhoService.ApiState
 
 
    ngOnInit() {
@@ -26,17 +27,17 @@ export class Carrinho implements OnInit {
   
   calcularTotal(): priceValues{
     const desconto = (this.state()?.discountedTotal ?? 0)
-    return this.service.valorTotal(desconto);
+    return this.carrinhoService.valorTotal(desconto);
   }
  
 
   atualizarLista() {
-    this.itensNoCarrinho = this.service.obterItens();
+    this.itensNoCarrinho = this.carrinhoService.obterItens();
     this.calcularTotal();
   }
 
   remover(id: number) {
-    this.service.removeFromCart(id);
+    this.carrinhoService.removeFromCart(id);
     this.atualizarLista();
     this.toats.warning('Produto removido', '', {
       timeOut: 4000,
@@ -46,18 +47,23 @@ export class Carrinho implements OnInit {
   }
 
   finalizarCompra(finalValue:number): void {
-    this.service.limparCarrinho();
+    this.carrinhoService.limparCarrinho();
+    this.produtoService.setInitialValues()
     this.toats.success(`compra de ${finalValue} efetuda`);
     this.atualizarLista();
   }
 
   aumentarQuantidade(id: number, quantidadeAtual: number) {
-    this.service.atualizarQuantidade(id, quantidadeAtual + 1);
+    const stock = this.produtoService.getStock(id)
+    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual + 1);
+    this.produtoService.uptadeStock(id,stock - 1) 
     this.atualizarLista();
   }
-
+  
   diminuirQuantidade(id: number, quantidadeAtual: number) {
-    this.service.atualizarQuantidade(id, quantidadeAtual - 1);
+    const stock = this.produtoService.getStock(id)
+    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual - 1);
+    this.produtoService.uptadeStock(id,stock + 1)
     this.atualizarLista();
   }
 }

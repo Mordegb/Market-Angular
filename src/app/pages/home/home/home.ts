@@ -48,9 +48,10 @@ export class Home implements OnInit {
   }
 
   comprar(item: ProdutoProps) {
-    if ((item.stock ?? 0) > 0) {
+    const stock = this.produtoService.getStock((item.id ?? 0))
+    if (stock > 0) {
       this.carrinhoService.addToCart(item);
-      this.produtoService.uptadeStock(item.id!,(item.stock! - 1))
+      this.produtoService.uptadeStock(item.id!,(stock - 1))
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,

@@ -18,7 +18,7 @@ export class ProductDetails implements OnInit {
   produto = signal<ProdutoProps | null>(null);
   isLoading = signal<boolean>(false);
   asError = signal<boolean>(false);
-
+  
   private actvRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private produtoService = inject(ProdutoService);
@@ -76,9 +76,10 @@ export class ProductDetails implements OnInit {
   }
 
   adicionarAoCarrinho(item: ProdutoProps) {
-    if ((item.stock ?? 0) > 0) {
+    const stock = this.produtoService.getStock((item.id ?? 0))
+    if ((stock ?? 0) > 0) {
       this.carrinhoService.addToCart(item);
-      this.produtoService.uptadeStock(item.id!,(item.stock! - 1))
+      this.produtoService.uptadeStock(item.id!,(stock - 1))
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,

@@ -39,11 +39,11 @@
 
         <p class="descricao">{{ produto.description }}</p>
 
-        @if (produto.stock === 0) {
+        @if (getStock(produto.id!) === 0) {
           <p class="estoque estoque--esgotado">
             <span class="estoque-dot"></span> Produto esgotado
           </p>
-        } @else if (produto.stock! <= 10) {
+        } @else if (getStock(produto.id!) <= 10) {
           <p class="estoque estoque--baixo">
             <span class="estoque-dot"></span> Últimas {{ getStock(produto.id!) }} unidades
           </p>

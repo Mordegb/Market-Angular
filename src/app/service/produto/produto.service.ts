@@ -26,7 +26,7 @@ export class ProdutoService {
   // private stockValues = signal<number[]>([]);
   private stockValues = signal<ProductAndStock[]>([]);
 
-  mutedValues() {
+  setInitialValues() {
     //aq os valores dos produtos ficam nun arrya dos  valores, furutamente a exibição da quantidade de produtos sera feita aq
     this.stockValues.set(
       this.listaProdutos.map((u) => ({
@@ -36,10 +36,14 @@ export class ProdutoService {
     );
   }
 
-  uptadeStock(id: number, newValue: number) {
-    this.stockValues.update((atual) =>
-      atual.map((item) => (item.productId === id ? { ...item, stock: newValue } : item)),
-    );
+  inicializateStock(id: number, stock: number) { // mais pra single page em caso de não carregar o array na home
+    this.stockValues.update((atual) => {
+      const existe = atual.some((item) => item.productId === id);
+      if (existe) {
+        return atual; // não muda nada se ja renderizou 
+      }
+      return [...atual, { productId: id, stock }];
+    });
   }
 
   getStock(id: number): number {
@@ -47,9 +51,23 @@ export class ProdutoService {
     return produto?.stock ?? 0;
   }
 
+  uptadeStock(id: number, newValue: number) {
+    this.stockValues.update((atual) => {
+      const existe = atual.some((item) => item.productId === id);
+      if (existe) {
+        return atual.map((item) => (item.productId === id ? { ...item, stock: newValue } : item));
+      }
+      //se o produto não tiver sido adicionado inicialmente  pelo getall adiciona
+      return [...atual, { productId: id, stock: newValue }];
+    });
+  }
+
   getSingle(id: number): Observable<ProdutoProps> {
-    this.mutedValues();
-    return this.http.get<ProdutoProps>(`${this.apiUrl}/${id}`);
+    return this.http.get<ProdutoProps>(`${this.apiUrl}/${id}`).pipe(
+      tap((produto) => {
+        this.inicializateStock(produto.id!, produto.stock!); //no sobresvreve com as informações da api acabando com o bug
+      }),
+    );
   }
 
   getAll(): Observable<APIResponse> {
@@ -60,7 +78,7 @@ export class ProdutoService {
     return this.http.get<APIResponse>(this.apiUrl).pipe(
       tap((dados) => {
         this.listaProdutos = dados.products;
-        this.mutedValues();
+        this.setInitialValues();
       }),
     );
   }
