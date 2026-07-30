@@ -1,19 +1,18 @@
 <div class="carrinho-container">
+  @if (calculado()) {
     <div class="prices">
-      <h2>Valor total: </h2>
-      <h2 class="value">R$ {{ calcularTotal().finalValue }}</h2>
+      <h2>Valor total:</h2>
+      <h2 class="value">R$ {{ calcularTotal().descauntedValue }}</h2>
     </div>
-    
-    @if (state(); as cart) {
-      <p class="prices-details">
-        Valor sem desconto: R$ {{ calcularTotal().totalValue| number: '1.2-2' }}
-        <br>
-        valor descontado (via dummyjson): R$ {{ calcularTotal().valueDiference| number: '1.2-2' }}
-      </p>
-    } @else if (isLoading()) {
-      <p class="calculando">Calculando desconto...</p>
-    }
 
+    <p class="prices-details">
+      Valor sem desconto: R$ {{ calcularTotal().totalPrice | number: '1.2-2' }}
+      <br />
+      valor descontado (via dummyjson): R$ {{ calcularTotal().priceDiference | number: '1.2-2' }}
+    </p>
+  } @else if (isLoading()) {
+    <p class="calculando">Calculando desconto...</p>
+  }
 
   @if (itensNoCarrinho.length > 0) {
     <ul class="lista-carrinho">
@@ -32,9 +31,7 @@
             </div>
           </div>
 
-          <app-button-color
-            (clicou)="remover(item.produto.id!)"
-            [texto]="'remover'">
+          <app-button-color (clicou)="remover(item.produto.id!)" [texto]="'remover'">
           </app-button-color>
         </li>
       }
@@ -42,8 +39,9 @@
 
     <div class="finalizar-compra">
       <app-button-color
-        (clicou)="finalizarCompra(calcularTotal().finalValue)"
-        [texto]="'Finalizar compra'">
+        (clicou)="finalizarCompra(calcularTotal().descauntedValue)"
+        [texto]="'Finalizar compra'"
+      >
       </app-button-color>
     </div>
   } @else {

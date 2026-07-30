@@ -3,7 +3,6 @@ import { ProdutoProps } from '../../Produto.model';
 import { HttpClient } from '@angular/common/http';
 import { catchError, of, tap } from 'rxjs';
 
-
 export interface ItemCarrinho {
   produto: ProdutoProps;
   quantity: number;
@@ -31,9 +30,9 @@ export interface cartAPI {
 }
 
 export interface priceValues {
-  totalValue: number;
-  finalValue: number;
-  valueDiference: number;
+  totalPrice: number;
+  descauntedValue: number;
+  priceDiference: number;
 }
 
 @Injectable({
@@ -45,7 +44,7 @@ export class CarrinhoService {
   private listaItens: ItemCarrinho[] = [];
   ApiState = signal<cartAPI | null>(null);
   isLoading = signal<boolean>(false);
-  calculedValue = signal<boolean>(false)
+  calculedValue = signal<boolean>(false);
 
   obterItens(): ItemCarrinho[] {
     return this.listaItens;
@@ -83,19 +82,22 @@ export class CarrinhoService {
     }
   }
 
-  valorTotal(desconto: number = 0):priceValues { //valor padrão é zero em caso de algum erro
+  valorTotal(): priceValues {
+    //botar pra receber direto da api ao inves de receber no ts
     //botar pra receber o valor com desconto
     var total: number = this.listaItens.reduce(
       (soma, item) => soma + (item.produto.price ?? 0) * item.quantity,
       0,
     );
     total = Number(total.toFixed(2)); //preço total de todos os produtos
-    const valueDiference = (total - (Number(desconto.toFixed(2)))) 
+    const cart = this.ApiState();
+    const finalValue = this.calculedValue() && cart ? cart.discountedTotal : total;
+    const valueDiference = Number(total - finalValue);
     return {
-      totalValue:total,
-      finalValue:desconto,
-      valueDiference:valueDiference
-    }; 
+      totalPrice: total,
+      descauntedValue: finalValue,
+      priceDiference: valueDiference,
+    };
   }
 
   limparCarrinho() {
@@ -108,6 +110,7 @@ export class CarrinhoService {
       this.ApiState.set(null);
       return;
     }
+    (this, this.calculedValue.set(false));
     this.isLoading.set(true);
 
     const products = this.listaItens.map((item) => ({
@@ -123,6 +126,7 @@ export class CarrinhoService {
       .pipe(
         tap((cart) => {
           this.ApiState.set(cart);
+          this.calculedValue.set(true);
           this.isLoading.set(false);
         }),
         catchError((erro) => {

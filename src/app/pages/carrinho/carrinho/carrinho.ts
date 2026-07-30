@@ -17,17 +17,16 @@ export class Carrinho implements OnInit {
   private produtoService = inject(ProdutoService)
   itensNoCarrinho: ItemCarrinho[] = [];
   isLoading = this.carrinhoService.isLoading
-  state = this.carrinhoService.ApiState
+  calculado = this.carrinhoService.calculedValue
 
 
-   ngOnInit() {
+  ngOnInit() {
     this.atualizarLista();
   }
 
   
   calcularTotal(): priceValues{
-    const desconto = (this.state()?.discountedTotal ?? 0)
-    return this.carrinhoService.valorTotal(desconto);
+    return this.carrinhoService.valorTotal();
   }
  
 
@@ -36,7 +35,8 @@ export class Carrinho implements OnInit {
     this.calcularTotal();
   }
 
-  remover(id: number) {
+  remover(id: number) {//nescessita de refactor talvez paramentro quantitativo
+    const originalStock = this.produtoService.getOriginalStock(id)
     this.carrinhoService.removeFromCart(id);
     this.atualizarLista();
     this.toats.warning('Produto removido', '', {
@@ -44,6 +44,7 @@ export class Carrinho implements OnInit {
       progressBar: true,
       positionClass: 'toast-bottom-right',
     });
+    this.produtoService.uptadeStock(id,originalStock)
   }
 
   finalizarCompra(finalValue:number): void {

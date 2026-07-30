@@ -3,6 +3,7 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProdutoProps } from '../../Produto.model';
+import { producerAccessed } from '@angular/core/primitives/signals';
 
 export interface APIResponse {
   products: ProdutoProps[];
@@ -23,7 +24,6 @@ export class ProdutoService {
   private apiUrl = 'https://dummyjson.com/products';
   private http = inject(HttpClient);
   private listaProdutos: ProdutoProps[] = [];
-  // private stockValues = signal<number[]>([]);
   private stockValues = signal<ProductAndStock[]>([]);
 
   setInitialValues() {
@@ -36,14 +36,19 @@ export class ProdutoService {
     );
   }
 
-  inicializateStock(id: number, stock: number) { // mais pra single page em caso de não carregar o array na home
+  inicializateStock(id: number, stock: number) {
+    // mais pra single page em caso de não carregar o array na home
     this.stockValues.update((atual) => {
       const existe = atual.some((item) => item.productId === id);
       if (existe) {
-        return atual; // não muda nada se ja renderizou 
+        return atual; // não muda nada se ja renderizou
       }
       return [...atual, { productId: id, stock }];
     });
+  }
+
+  getOriginalStock(id: number): number {
+    return this.listaProdutos.find((produto) => produto.id === id)?.stock ?? 0;
   }
 
   getStock(id: number): number {
