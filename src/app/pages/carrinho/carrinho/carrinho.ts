@@ -50,7 +50,7 @@ export class Carrinho implements OnInit {
   finalizarCompra(finalValue:number): void {
     this.carrinhoService.limparCarrinho();
     this.produtoService.setInitialValues()
-    this.toats.success(`compra de ${finalValue} efetuda`);
+    this.toats.success(`compra de ${finalValue}R$ efetuda`);
     this.atualizarLista();
   }
 
