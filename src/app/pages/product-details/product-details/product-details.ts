@@ -18,7 +18,7 @@ export class ProductDetails implements OnInit {
   produto = signal<ProdutoProps | null>(null);
   isLoading = signal<boolean>(false);
   asError = signal<boolean>(false);
-
+  
   private actvRoute = inject(ActivatedRoute);
   private router = inject(Router);
   private produtoService = inject(ProdutoService);
@@ -51,6 +51,10 @@ export class ProductDetails implements OnInit {
     });
   }
 
+  getStock(id: number) {
+    return this.produtoService.getStock(id);
+  }
+
   navigation(id: number) {
     this.router.navigate(['/product', id]);
   }
@@ -72,14 +76,15 @@ export class ProductDetails implements OnInit {
   }
 
   adicionarAoCarrinho(item: ProdutoProps) {
-    if ((item.stock ?? 0) > 0) {
-      this.carrinhoService.adicionarAoCarrinho(item);
+    const stock = this.produtoService.getStock((item.id ?? 0))
+    if ((stock ?? 0) > 0) {
+      this.carrinhoService.addToCart(item);
+      this.produtoService.uptadeStock(item.id!,(stock - 1))
       this.toast.success('Adiocionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
         positionClass: 'toast-bottom-right',
       });
-      item.stock! -= 1;
     } else {
       this.toast.warning('produto ja esgotado', '', {
         timeOut: 3500,

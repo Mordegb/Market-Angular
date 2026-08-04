@@ -1,23 +1,49 @@
 <div class="carrinho-container">
-  <h2>valor total: {{ValorTotal}}</h2>
+  @if (calculado()) {
+    <div class="prices">
+      <h2>Valor total:</h2>
+      <h2 class="value">R$ {{ calcularTotal().descauntedValue }}</h2>
+    </div>
+
+    <p class="prices-details">
+      Valor sem desconto: R$ {{ calcularTotal().totalPrice | number: '1.2-2' }}
+      <br />
+      valor descontado (via dummyjson): R$ {{ calcularTotal().priceDiference | number: '1.2-2' }}
+    </p>
+  } @else if (isLoading()) {
+    <p class="calculando">Calculando desconto...</p>
+  }
 
   @if (itensNoCarrinho.length > 0) {
     <ul class="lista-carrinho">
-      @for (item of itensNoCarrinho; track item.id) {
+      @for (item of itensNoCarrinho; track item.produto.id) {
         <li class="item-carrinho">
-          <img [src]="item.thumbnail" [alt]="item.title" width="80" />
+          <img [src]="item.produto.thumbnail" [alt]="item.produto.title" width="80" />
 
           <div class="info">
-            <h3>{{ item.title }}</h3>
-            <p>Preço: R${{ item.price }}</p>
+            <h3>{{ item.produto.title }}</h3>
+            <p>Preço: R${{ item.produto.price }}</p>
+
+            <div class="quantidade-controle">
+              <button (click)="diminuirQuantidade(item.produto.id!, item.quantity)">-</button>
+              <span>{{ item.quantity }}</span>
+              <button (click)="aumentarQuantidade(item.produto.id!, item.quantity)">+</button>
+            </div>
           </div>
-          <app-button-color
-          (clicou)="remover(item.id!)"
-          [texto]="'remover'">
+
+          <app-button-color (clicou)="remover(item.produto.id!)" [texto]="'remover'">
           </app-button-color>
         </li>
       }
     </ul>
+
+    <div class="finalizar-compra">
+      <app-button-color
+        (clicou)="finalizarCompra(calcularTotal().descauntedValue)"
+        [texto]="'Finalizar compra'"
+      >
+      </app-button-color>
+    </div>
   } @else {
     <p>carrinho ta vazio</p>
   }

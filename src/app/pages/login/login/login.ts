@@ -1,5 +1,4 @@
 import { Component, inject } from '@angular/core';
-import { ProdutoService} from '../../../service/produto/produto.service';
 import {
   FormsModule,
   FormControl,
@@ -8,9 +7,7 @@ import {
   ReactiveFormsModule,
 } from '@angular/forms'; //meu deus muitos imports
 import { Router } from '@angular/router';
-import { form } from '@angular/forms/signals';
 import { UserService } from '../../../service/user/user.service';
-import { RouterLink } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 
 @Component({

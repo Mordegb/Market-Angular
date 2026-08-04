@@ -11,7 +11,7 @@
 
         <div class="info">
           <p class="preco">Preço: R${{ item.price }}</p>
-          <p class="estoque">Estoque: {{ item.stock }} em esqtoque</p>
+          <p class="estoque">Estoque: {{ getStock(item.id!) }} em estoque</p>
 
           <app-button-color [texto]="'Adicionar ao Carrinho'" (clicou)="comprar(item)">
           </app-button-color>

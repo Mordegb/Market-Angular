@@ -1,9 +1,9 @@
-import { Component, inject, OnInit } from '@angular/core';
+import { Component, inject, OnInit, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { CarrinhoService } from '../../../service/carrinho/carrinho.service';
-import { ProdutoProps } from '../../../Produto.model';
+import { CarrinhoService, ItemCarrinho ,priceValues} from '../../../service/carrinho/carrinho.service';
 import { ButtonColor } from '../../../components/button-color/button-color';
 import { ToastrService } from 'ngx-toastr';
+import { ProdutoService } from '../../../service/produto/produto.service';
 
 @Component({
   selector: 'app-carrinho',
@@ -11,42 +11,60 @@ import { ToastrService } from 'ngx-toastr';
   templateUrl: './carrinho.html',
   styleUrl: './carrinho.scss',
 })
-export class Carrinho {
-  itensNoCarrinho: ProdutoProps[] = [];
-  constructor(private carrinhoService: CarrinhoService) {
-    this.calcularTotal() // pra começar assim que o componente abri ja que a logica ta aqui
-  }
+export class Carrinho implements OnInit {
+  private carrinhoService = inject(CarrinhoService);
+  private toats = inject(ToastrService);
+  private produtoService = inject(ProdutoService)
+  itensNoCarrinho: ItemCarrinho[] = [];
+  isLoading = this.carrinhoService.isLoading
+  calculado = this.carrinhoService.calculedValue
 
-  toats = inject(ToastrService)
-  
-  ValorTotal: number = 0;
-  calcularTotal(){
-    this.ValorTotal = 0
-      for(let i = 0; i < this.itensNoCarrinho.length; i++){
-          this.ValorTotal += this.itensNoCarrinho[i].price!;
-        }
-        this.ValorTotal = Number(this.ValorTotal.toFixed(2));
-    }
 
   ngOnInit() {
-    this.itensNoCarrinho = this.carrinhoService.obterItens();
-    this.calcularTotal()
+    this.atualizarLista();
   }
+
+  
+  calcularTotal(): priceValues{
+    return this.carrinhoService.valorTotal();
+  }
+ 
 
   atualizarLista() {
     this.itensNoCarrinho = this.carrinhoService.obterItens();
-    this.calcularTotal()
+    this.calcularTotal();
   }
 
-  remover(id: number) {
-    this.carrinhoService.removerItem(id);
-    this.atualizarLista(); 
-    this.calcularTotal()
-    this.toats.warning('Produto removido','',{
-      timeOut:4000,
-      progressBar:true,
-      positionClass:'toast-bottom-right'
-    })
+  remover(id: number) {//nescessita de refactor talvez paramentro quantitativo
+    const originalStock = this.produtoService.getOriginalStock(id)
+    this.carrinhoService.removeFromCart(id);
+    this.atualizarLista();
+    this.toats.warning('Produto removido', '', {
+      timeOut: 4000,
+      progressBar: true,
+      positionClass: 'toast-bottom-right',
+    });
+    this.produtoService.uptadeStock(id,originalStock)
+  }
 
+  finalizarCompra(finalValue:number): void {
+    this.carrinhoService.limparCarrinho();
+    this.produtoService.setInitialValues()
+    this.toats.success(`compra de ${finalValue}R$ efetuda`);
+    this.atualizarLista();
+  }
+
+  aumentarQuantidade(id: number, quantidadeAtual: number) {
+    const stock = this.produtoService.getStock(id)
+    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual + 1);
+    this.produtoService.uptadeStock(id,stock - 1) 
+    this.atualizarLista();
+  }
+  
+  diminuirQuantidade(id: number, quantidadeAtual: number) {
+    const stock = this.produtoService.getStock(id)
+    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual - 1);
+    this.produtoService.uptadeStock(id,stock + 1)
+    this.atualizarLista();
   }
 }
