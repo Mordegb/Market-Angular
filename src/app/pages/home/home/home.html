@@ -13,7 +13,7 @@
           <p class="preco">Preço: R${{ item.price }}</p>
           <p class="estoque">Estoque: {{ getStock(item.id!) }} em estoque</p>
 
-          <app-button-color [texto]="'Adicionar ao Carrinho'" (clicou)="comprar(item)">
+          <app-button-color [texto]="'Adicionar ao Carrinho'" (clicou)="buyProduct(item)">
           </app-button-color>
         </div>
       </li>

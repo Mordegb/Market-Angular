@@ -2,13 +2,13 @@
   @if (calculado()) {
     <div class="prices">
       <h2>Valor total:</h2>
-      <h2 class="value">R$ {{ calcularTotal().descauntedValue }}</h2>
+      <h2 class="value">R$ {{ calculateTotal().descauntedValue }}</h2>
     </div>
 
     <p class="prices-details">
-      Valor sem desconto: R$ {{ calcularTotal().totalPrice | number: '1.2-2' }}
+      Valor sem desconto: R$ {{ calculateTotal().totalPrice | number: '1.2-2' }}
       <br />
-      valor descontado (via dummyjson): R$ {{ calcularTotal().priceDiference | number: '1.2-2' }}
+      valor descontado (via dummyjson): R$ {{ calculateTotal().priceDiference | number: '1.2-2' }}
     </p>
   } @else if (isLoading()) {
     <p class="calculando">Calculando desconto...</p>
@@ -25,13 +25,13 @@
             <p>Preço: R${{ item.produto.price }}</p>
 
             <div class="quantidade-controle">
-              <button (click)="diminuirQuantidade(item.produto.id!, item.quantity)">-</button>
+              <button (click)="downQuantity(item.produto.id!, item.quantity)">-</button>
               <span>{{ item.quantity }}</span>
-              <button (click)="aumentarQuantidade(item.produto.id!, item.quantity)">+</button>
+              <button (click)="upQuantity(item.produto.id!, item.quantity)">+</button>
             </div>
           </div>
 
-          <app-button-color (clicou)="remover(item.produto.id!)" [texto]="'remover'">
+          <app-button-color (clicou)="removeItem(item.produto.id!)" [texto]="'remover'">
           </app-button-color>
         </li>
       }
@@ -39,7 +39,7 @@
 
     <div class="finalizar-compra">
       <app-button-color
-        (clicou)="finalizarCompra(calcularTotal().descauntedValue)"
+        (clicou)="purchase(calculateTotal().descauntedValue)"
         [texto]="'Finalizar compra'"
       >
       </app-button-color>

@@ -25,14 +25,14 @@ export class Home implements OnInit {
   private toast = inject(ToastrService);
 
   ngOnInit(): void {
-    this.carregarDados();
+    this.loadDates();
   }
 
   getStock(id:number){
     return this.produtoService.getStock(id)
   }
 
-  carregarDados() {
+  loadDates() {
     this.isLoading.set(true); // é pra mostrar que ta carregando
     this.produtoService.getAll().subscribe({
       next: (dados: any) => {
@@ -47,7 +47,7 @@ export class Home implements OnInit {
     });
   }
 
-  comprar(item: ProdutoProps) {
+  buyProduct(item: ProdutoProps) {
     const stock = this.produtoService.getStock((item.id ?? 0))
     if (stock > 0) {
       this.carrinhoService.addToCart(item);

@@ -31,7 +31,7 @@ export class Login {
   });
 
   loginSucesfull = false;
-  buscarUsuario() {
+  login() {
     if (this.loginForm.invalid) {
       return;
     }
@@ -67,7 +67,7 @@ export class Login {
     });
   }
 
-  fazerLogin() {
+  fazerLogin() { //guardada so pra exemplo de emit, mas não utilizada
     if (this.loginForm.valid) {
       //vai criar as coisas do grupo que tem que validar
       console.log(this.loginForm.value);
