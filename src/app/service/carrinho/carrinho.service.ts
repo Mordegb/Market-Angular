@@ -46,7 +46,7 @@ export class CarrinhoService {
   isLoading = signal<boolean>(false);
   calculedValue = signal<boolean>(false);
 
-  obterItens(): ItemCarrinho[] {
+  getItens(): ItemCarrinho[] {
     return this.listaItens;
   }
 
@@ -62,15 +62,15 @@ export class CarrinhoService {
       this.listaItens.push({ produto, quantity: 1 });
     }
 
-    this.sincronizarAPI();
+    this.syncAPI();
   }
 
   removeFromCart(id: number) {
     this.listaItens = this.listaItens.filter((item) => item.produto.id !== id);
-    this.sincronizarAPI();
+    this.syncAPI();
   }
 
-  atualizarQuantidade(id: number, novaQuantidade: number) {
+  updateQuantity(id: number, novaQuantidade: number) {
     if (novaQuantidade <= 0) {
       this.removeFromCart(id);
       return;
@@ -78,11 +78,11 @@ export class CarrinhoService {
     const item = this.listaItens.find((item) => item.produto.id === id);
     if (item) {
       item.quantity = novaQuantidade;
-      this.sincronizarAPI();
+      this.syncAPI();
     }
   }
 
-  valorTotal(): priceValues {
+  totalValue(): priceValues {
     //botar pra receber direto da api ao inves de receber no ts
     //botar pra receber o valor com desconto
     var total: number = this.listaItens.reduce(
@@ -100,12 +100,12 @@ export class CarrinhoService {
     };
   }
 
-  limparCarrinho() {
+  clearCart() {
     this.listaItens = [];
     this.ApiState.set(null);
   }
 
-  private sincronizarAPI() {
+  private syncAPI() {
     if (this.listaItens.length === 0) {
       this.ApiState.set(null);
       return;

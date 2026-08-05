@@ -26,12 +26,12 @@ export class Carrinho implements OnInit {
 
   
   calcularTotal(): priceValues{
-    return this.carrinhoService.valorTotal();
+    return this.carrinhoService.totalValue();
   }
  
 
   atualizarLista() {
-    this.itensNoCarrinho = this.carrinhoService.obterItens();
+    this.itensNoCarrinho = this.carrinhoService.getItens();
     this.calcularTotal();
   }
 
@@ -48,7 +48,7 @@ export class Carrinho implements OnInit {
   }
 
   finalizarCompra(finalValue:number): void {
-    this.carrinhoService.limparCarrinho();
+    this.carrinhoService.clearCart();
     this.produtoService.setInitialValues()
     this.toats.success(`compra de ${finalValue}R$ efetuda`);
     this.atualizarLista();
@@ -56,14 +56,14 @@ export class Carrinho implements OnInit {
 
   aumentarQuantidade(id: number, quantidadeAtual: number) {
     const stock = this.produtoService.getStock(id)
-    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual + 1);
+    this.carrinhoService.updateQuantity(id, quantidadeAtual + 1);
     this.produtoService.uptadeStock(id,stock - 1) 
     this.atualizarLista();
   }
   
   diminuirQuantidade(id: number, quantidadeAtual: number) {
     const stock = this.produtoService.getStock(id)
-    this.carrinhoService.atualizarQuantidade(id, quantidadeAtual - 1);
+    this.carrinhoService.updateQuantity(id, quantidadeAtual - 1);
     this.produtoService.uptadeStock(id,stock + 1)
     this.atualizarLista();
   }
