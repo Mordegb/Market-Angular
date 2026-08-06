@@ -4,7 +4,7 @@
   <div class="status-container">
     <p>Não foi possível encontrar esse produto.</p>
     <div class="botao-principal">
-      <app-button-color [texto]="'voltar para home'" (clicou)="voltar()"></app-button-color>
+      <app-button-color [texto]="'voltar para home'" (clicou)="back()"></app-button-color>
     </div>
   </div>
 } @else if (produto(); as produto) {
@@ -56,7 +56,7 @@
         <div class="botao-principal">
           <app-button-color
             [texto]="'Adicionar ao Carrinho'"
-            (clicou)="adicionarAoCarrinho(produto)"
+            (clicou)="addTocart(produto)"
           ></app-button-color>
         </div>
       </div>

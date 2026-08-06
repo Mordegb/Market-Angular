@@ -29,12 +29,12 @@ export class ProductDetails implements OnInit {
     this.actvRoute.paramMap.subscribe((params) => {
       const id = Number(params.get('id'));
       if (id) {
-        this.carregarProduto(id);
+        this.loadProduct(id);
       }
     });
   }
 
-  carregarProduto(id: number) {
+  loadProduct(id: number) {
     this.isLoading.set(true);
     this.asError.set(false);
 
@@ -75,7 +75,7 @@ export class ProductDetails implements OnInit {
     }
   }
 
-  adicionarAoCarrinho(item: ProdutoProps) {
+  addTocart(item: ProdutoProps) {
     const stock = this.produtoService.getStock((item.id ?? 0))
     if ((stock ?? 0) > 0) {
       this.carrinhoService.addToCart(item);
@@ -94,7 +94,7 @@ export class ProductDetails implements OnInit {
     }
   }
 
-  voltar() {
+  back() {
     this.router.navigate(['/home']);
   }
 }
