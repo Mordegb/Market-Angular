@@ -64,5 +64,5 @@ For more information on using the Angular CLI, including detailed command refere
 
 
 ## feactures futures:
-1. fazer a pagina de login direito usando interceptor
-2. refazer o service do carrinho 
+1. refazer a pagina de login usando o interceptor
+2. fazer um sistema para ir pro modo escuro ou ao menos mudar de cor
