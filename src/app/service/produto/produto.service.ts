@@ -3,7 +3,6 @@ import { HttpClient } from '@angular/common/http';
 import { Observable, of } from 'rxjs';
 import { map, tap } from 'rxjs/operators';
 import { ProdutoProps } from '../../Produto.model';
-import { producerAccessed } from '@angular/core/primitives/signals';
 
 export interface APIResponse {
   products: ProdutoProps[];

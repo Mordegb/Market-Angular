@@ -17,11 +17,8 @@ import { ToastrService } from 'ngx-toastr';
   styleUrl: './login.scss',
 })
 export class Login {
-  constructor(
-    // puxando meus services
-    private Userservice: UserService,
-    private router: Router,
-  ) {}
+  router = inject(Router)
+  Userservice = inject(UserService)
   toast = inject(ToastrService);
 
   loginForm = new FormGroup({
@@ -50,16 +47,15 @@ export class Login {
           this.router.navigate(['/home']); //vai levar pra home sem ser direto do html , aq fica mais simples
         } else if (usuarioEncontrado && usuarioEncontrado.password !== senhaDigitada) {
           this.loginForm.patchValue({ UserPassword: '' }); //posso setar o valor de uma so coisa, o setValue pede tudo
-          this.toast.warning('senha incorreta','', {
+          this.toast.warning('senha incorreta', '', {
             timeOut: 3000,
-            progressBar: true
+            progressBar: true,
           });
-
         } else {
-          this.toast.error('usuario inexistente','',{
-            timeOut:4000,
-            progressBar:true
-          })
+          this.toast.error('usuario inexistente', '', {
+            timeOut: 4000,
+            progressBar: true,
+          });
           this.loginForm.setValue({ UserEmail: '', UserPassword: '' }); // seta os valores do input para deixar vazio
           // this.loginForm.reset() // faz a mesma coisa que o de cima (é so uma anotação)
         }
@@ -67,7 +63,21 @@ export class Login {
     });
   }
 
-  fazerLogin() { //guardada so pra exemplo de emit, mas não utilizada
+  useTestAccount() {
+    (this,
+      this.loginForm.setValue({
+        UserEmail: 'emily.johnson@x.dummyjson.com',
+        UserPassword: 'emilyspass',
+      }));
+  }
+
+  inputType: string = 'password';
+  switchType() {
+    this.inputType = this.inputType === 'password' ? 'text' : 'password';
+  }
+
+  fazerLogin() {
+    //guardada so pra exemplo de emit, mas não utilizada
     if (this.loginForm.valid) {
       //vai criar as coisas do grupo que tem que validar
       console.log(this.loginForm.value);

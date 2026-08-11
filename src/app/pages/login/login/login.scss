@@ -1,9 +1,4 @@
-body {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  min-height: 100vh;
-  background-color: #f3f3f3;
+* {
   margin: 0;
 }
 
@@ -11,44 +6,103 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
+  height: 98vh;
+  background-color: var(--primaryBG);
+  gap: 14px;
+}
+
+.tile {
+  margin-top: 0%;
+}
+
+.login-card {
+  display: flex;
   width: 100%;
+  max-width: 75%;
+  height: 65%;
+  background: white;
+  border: 2px solid #000000;
+  border-radius: 8px;
+  overflow: hidden;
 }
 
 .formulario {
-  background: white;
+  flex: 1;
   padding: 25px;
-  border: 1px solid #000000;
-  border-radius: 8px;
-  width: 100%;
-  max-width: 350px; 
   display: flex;
   flex-direction: column;
-  gap: 15px; 
-  
+  justify-content: center;
+  gap: 20px;
 }
 
-.email, .senha {
+.divisoria {
+  width: 1px;
+  background-color: #000000;
+  opacity: 0.15;
+}
+
+.imagem-lateral {
+  flex: 1;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: var(--primaryBG);
+
+  img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover; 
+    display: block;
+  }
+}
+
+.email,
+.senha {
   width: 100%;
-  height: 31px; 
+  height: 31px;
   padding: 3px 7px;
   line-height: normal;
   border: 1px solid black;
   border-radius: 3px;
   font-size: 13px;
-  transition: .2s;
+  transition: 0.2s;
 
   &:focus {
-    transition: border-color .4s, box-shadow .4s;
+    transition:
+      border-color 0.4s,
+      box-shadow 0.4s;
     outline: none;
     border-color: blue;
-    box-shadow: 0 0 1px 1px blue
+    box-shadow: 0 0 1px 1px blue;
   }
 }
 
+.campo-senha {
+  position: relative;
+  display: flex;
+  align-items: center;
+  .senha {
+    padding-right: 34px;
+  }
 
+  .toggle-senha {
+    position: absolute;
+    right: 8px;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 18px;
+    height: 18px;
+    cursor: pointer;
+    opacity: 0.6;
+    &:hover {
+      opacity: 1;
+    }
+  }
+}
 
-.botaoTrue{
-background: blue;
+.botao-true {
+  background: rgb(52, 1, 218);
   border: 1px solid blue;
   border-radius: 6px;
   padding: 8px;
@@ -56,17 +110,47 @@ background: blue;
   color: #ddd;
   font-size: large;
   &:hover {
-    transition: .2s;
-    background: rgb(1, 1, 218);
+    transition: 0.2s;
+    background: rgb(39, 2, 159);
   }
 }
 
-.botaoFalse{
-  background: rgb(1, 1, 190);
+.botao-false {
+  background: lab(23.57% 64.5 -87.99);
   border: 1px solid blue;
   border-radius: 6px;
   padding: 8px;
   color: #ddd;
   font-size: large;
   opacity: 0.4;
+}
+
+.conta-teste {
+  margin-top: 0;
+  background: none;
+  border: none;
+  color: #039ae5;
+  font-size: 120%;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #0381c0;
+  }
+}
+
+@media (max-width: 700px) {
+  .login-card {
+    max-width: 94%;
+    height: auto;
+  }
+
+  .divisoria,
+  .imagem-lateral {
+    display: none;
+  }
+
+  .formulario {
+    padding: 20px;
+  }
 }
