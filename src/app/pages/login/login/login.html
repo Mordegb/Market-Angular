@@ -2,7 +2,6 @@
   <div class="login-card">
     <form class="formulario" [formGroup]="loginForm" (ngSubmit)="login()">
       <input type="text" class="email" placeholder="E-mail" formControlName="UserEmail" />
-
       <div class="campo-senha">
         <input
           [type]="inputType"
@@ -25,6 +24,9 @@
       >
         Login
       </button>
+      <div class="conta-teste-container">
+        <button class="conta-teste" (click)="useTestAccount()">Usar conta de teste</button>
+      </div>
     </form>
 
     <div class="divisoria"></div>
@@ -34,5 +36,4 @@
     </div>
   </div>
 
-  <button class="conta-teste" (click)="useTestAccount()">Usar conta de teste</button>
 </div>

@@ -12,28 +12,43 @@
   gap: 14px;
 }
 
-.tile {
-  margin-top: 0%;
-}
-
 .login-card {
   display: flex;
-  width: 100%;
+  width: 70%;
   max-width: 75%;
-  height: 65%;
   background: white;
-  border: 2px solid #000000;
+  border: 1px solid #000000;
   border-radius: 8px;
   overflow: hidden;
 }
 
 .formulario {
   flex: 1;
+  min-width: 0;
   padding: 25px;
   display: flex;
   flex-direction: column;
   justify-content: center;
   gap: 20px;
+}
+
+.conta-teste-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.conta-teste {
+  background: none;
+  border: none;
+  color: #039ae5;
+  font-size: 120%;
+  cursor: pointer;
+  text-decoration: underline;
+
+  &:hover {
+    color: #0381c0;
+  }
 }
 
 .divisoria {
@@ -44,23 +59,25 @@
 
 .imagem-lateral {
   flex: 1;
+  min-width: 0;
+  aspect-ratio: 1 / 1; // trava a proporção: altura = largura, igual ao logo.svg
   display: flex;
   align-items: center;
   justify-content: center;
-  background-color: var(--primaryBG);
 
   img {
     width: 100%;
     height: 100%;
-    object-fit: cover; 
+    object-fit: cover;
     display: block;
   }
 }
 
 .email,
 .senha {
+  box-sizing: border-box;
   width: 100%;
-  height: 31px;
+  height: 9%;
   padding: 3px 7px;
   line-height: normal;
   border: 1px solid black;
@@ -82,15 +99,16 @@
   position: relative;
   display: flex;
   align-items: center;
-  .senha {
-    padding-right: 34px;
+  width: 100%; 
+  height: 9%;
+  .senha{
+    height: 100%;
   }
-
   .toggle-senha {
     position: absolute;
     right: 8px;
     top: 50%;
-    transform: translateY(-50%);
+    transform: translateY(-50%); //aq o negocio pra conta t4este
     width: 18px;
     height: 18px;
     cursor: pointer;
@@ -125,6 +143,12 @@
   opacity: 0.4;
 }
 
+.conta-teste-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
 .conta-teste {
   margin-top: 0;
   background: none;
@@ -139,10 +163,11 @@
   }
 }
 
-@media (max-width: 700px) {
+@media (max-width: 950px) {
   .login-card {
     max-width: 94%;
-    height: auto;
+    height: 80%;
+    width: 90%;
   }
 
   .divisoria,
@@ -153,4 +178,18 @@
   .formulario {
     padding: 20px;
   }
+
+  .conta-teste {
+    transform: translateY(800%); //aq o negocio pra conta t4este
+
+  }
+
+
+  .email,.campo-senha{
+    height: 6.2%;
+    .senha{
+      height: 100%;
+    }
+  }
+
 }
