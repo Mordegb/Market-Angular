@@ -3,17 +3,44 @@
   box-sizing: border-box
 }
 
+// .mobile-decorator{
+//   display: flex;
+//   width: 70%;
+//   max-width: 75%;
+//   height: 90%;
+//   background: rgb(255, 0, 0);
+//   z-index: -1;
+// }
+
 .container {
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  position: relative;
   height: 98vh;
   background-color: var(--primaryBG);
   gap: 0.875rem;
 }
 
+.mobile-decorator {
+    display: block;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 90%;
+    height: 80%;
+    background-color: #063679; 
+    border-radius: 1rem;
+    transform: translate(-50%, calc(-50% - 0.5rem)); //sempre pra ficar no lugar certo (que calculo doido é esse mds)
+ 
+  @media (min-width: 950px) {
+    display: none;
+  }
+}
+
 .login-card {
+  z-index: 1;
   display: flex;
   width: 70%;
   max-width: 75%;
