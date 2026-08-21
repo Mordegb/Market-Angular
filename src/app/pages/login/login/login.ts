@@ -18,7 +18,7 @@ import { ToastrService } from 'ngx-toastr';
 })
 export class Login {
   router = inject(Router)
-  Userservice = inject(UserService)
+  userService = inject(UserService)
   toast = inject(ToastrService);
 
   loginForm = new FormGroup({
@@ -27,7 +27,6 @@ export class Login {
     UserPassword: new FormControl('', [Validators.required]),
   });
 
-  loginSucesfull = false;
   login() {
     if (this.loginForm.invalid) {
       return;
@@ -35,7 +34,7 @@ export class Login {
     const emailDigitado = this.loginForm.value.UserEmail;
     const senhaDigitada = this.loginForm.value.UserPassword;
 
-    this.Userservice.getAll().subscribe({
+    this.userService.getAll().subscribe({
       next: (ListaUsuarios) => {
         //aqui vai meu array que ta no service
         const usuarioEncontrado = ListaUsuarios.find((u) => u.email === emailDigitado);
@@ -64,11 +63,10 @@ export class Login {
   }
 
   useTestAccount() {
-    (this,
-      this.loginForm.setValue({
+   this.loginForm.setValue({
         UserEmail: 'emily.johnson@x.dummyjson.com',
         UserPassword: 'emilyspass',
-      }));
+      })
   }
 
   inputType: string = 'password';
