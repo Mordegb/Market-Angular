@@ -2,7 +2,9 @@
   <div class="mobile-decorator"></div>
   <div class="login-card">
     <form class="formulario" [formGroup]="loginForm" (ngSubmit)="login()">
+      <label class="label-email">Email</label>
       <input type="text" class="email" placeholder="E-mail" formControlName="UserEmail" />
+      <label class="label-senha">Senha</label>
       <div class="campo-senha">
         <input
           [type]="inputType"
@@ -26,7 +28,9 @@
         Login
       </button>
       <div class="conta-teste-container">
-        <button class="conta-teste" type="button" (click)="useTestAccount()">usar conta de teste</button>
+        <button class="conta-teste" type="button" (click)="useTestAccount()">
+          usar conta de teste
+        </button>
       </div>
     </form>
 
@@ -35,6 +39,9 @@
     <div class="imagem-lateral">
       <img src="logo.svg" alt="Market Polo" />
     </div>
-  </div>
 
+    <div class="logo-mobile">
+      <img src="logo.svg" alt="Market Polo" />
+    </div>
+  </div>
 </div>
