@@ -1,10 +1,13 @@
 # MarketPolo
 
 # Para entrar na pagina de login:
+### usuario:"emily.johnson@x.dummyjson.com"
+### Senha:"emilyspass"
 
-## usuario:"emily.johnson@x.dummyjson.com"
 
-## Senha:"emilyspass"
+# feactures futures:
+1. refazer a pagina de login usando o interceptor
+2. fazer um sistema para ir pro modo escuro ou ao menos mudar de cor
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 ## Development server
@@ -63,6 +66,4 @@ Angular CLI does not come with an end-to-end testing framework by default. You c
 For more information on using the Angular CLI, including detailed command references, visit the [Angular CLI Overview and Command Reference](https://angular.dev/tools/cli) page.
 
 
-## feactures futures:
-1. fazer a pagina de login direito usando interceptor
-2. refazer o service do carrinho 
+

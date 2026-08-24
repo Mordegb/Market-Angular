@@ -1,8 +1,13 @@
 //estilos globais
-
 @import 'ngx-toastr/toastr';
 
 :root {
   --primaryBG: #efeff6;
   --priceProduct: #068906;
+  --primaryColor: #0152c3
+}
+
+*{
+  margin: 0;
+  padding: 0;
 }
