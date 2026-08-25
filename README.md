@@ -8,6 +8,7 @@
 # feactures futures:
 1. refazer a pagina de login usando o interceptor
 2. fazer um sistema para ir pro modo escuro ou ao menos mudar de cor
+3. fazer o botão de entrar com conta de teste ser um usuario aleatorio.
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.0.5.
 ## Development server
