@@ -2,14 +2,16 @@ import { ApplicationConfig, provideBrowserGlobalErrorListeners } from '@angular/
 import { provideRouter } from '@angular/router';
 import { routes } from './app.routes';
 import { provideClientHydration, withEventReplay } from '@angular/platform-browser';
-
-import { provideToastr } from 'ngx-toastr';              // ✅ importar daqui
+import { provideToastr } from 'ngx-toastr';
+import { provideHttpClient, withFetch, withInterceptors } from '@angular/common/http';
+import { authInterceptor } from '../interceptors/auth-intercptor';
 
 export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes),
     provideClientHydration(withEventReplay()),
-    provideToastr(),     
-  ]
+    provideToastr(),
+    provideHttpClient(withFetch(), withInterceptors([authInterceptor])),
+  ],
 };
