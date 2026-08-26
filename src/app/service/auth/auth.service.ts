@@ -36,8 +36,8 @@ export class AuthService {
   private plataformID = inject(PLATFORM_ID);
   private apiUrl = 'https://dummyjson.com';
 
-  private tokenSig = signal<string | null>(this.readToken()); //quando o access token
-  private userSig = signal<authUser | null>(this.readUser()); // guard ao usuario logado
+  private tokenSig = signal<string | null>(this.getToken()); //quando o access token
+  private userSig = signal<authUser | null>(this.getUser()); // guard ao usuario logado
 
   readonly token = this.tokenSig.asReadonly();
   readonly user = this.userSig.asReadonly();
@@ -53,12 +53,12 @@ export class AuthService {
   }
 
 
-  private readToken(): string | null {
+  private getToken(): string | null {
     if (!isPlatformBrowser(this.plataformID)) return null;
     return localStorage.getItem(TOKEN_KEY);
   }
 
-  private readUser(): authUser | null {
+  private getUser(): authUser | null {
     if (!isPlatformBrowser(this.plataformID)) return null;
     const key = localStorage.getItem(USER_KEY);
     return key ? JSON.parse(key) : null; //tranforma pra json
@@ -79,7 +79,7 @@ export class AuthService {
           return this.http.post<ApiResponse>(`${this.apiUrl}/auth/login`, {
             username: found.username,
             password: password,
-            expiresInMins: 1,
+            expiresInMins: 10,
           });
         }),
         map((res) => {
