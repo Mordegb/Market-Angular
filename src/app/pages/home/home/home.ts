@@ -52,7 +52,7 @@ export class Home implements OnInit {
     if (stock > 0) {
       this.carrinhoService.addToCart(item);
       this.produtoService.uptadeStock(item.id!,(stock - 1))
-      this.toast.success('Adiocionado ao carrinho', '', {
+      this.toast.success('Adicionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
         positionClass: 'toast-bottom-right',
