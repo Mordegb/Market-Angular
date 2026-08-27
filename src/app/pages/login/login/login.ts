@@ -43,9 +43,14 @@ export class Login {
       next: () => {
         this.isLoading.set(false);
         this.router.navigate(['/home']);
+        this.toast.success('login bem sucedido!', '', {
+          timeOut: 3000,
+          progressBar: true,
+          positionClass:'toast-bottom-right'
+        });
       },
       error: (erro) => {
-        this.logout()
+        this.logout();
         this.isLoading.set(false);
 
         if (erro?.code === 'USER_NOT_FOUND') {
@@ -77,8 +82,8 @@ export class Login {
     this.inputType = this.inputType === 'password' ? 'text' : 'password';
   }
 
-  logout(){
-    this.authService.logout()
+  logout() {
+    this.authService.logout();
   }
 
   fazerLogin() {

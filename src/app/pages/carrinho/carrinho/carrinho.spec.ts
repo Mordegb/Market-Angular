@@ -1,5 +1,5 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { provideToastr } from 'ngx-toastr';
 import { Carrinho } from './carrinho';
 
 describe('Carrinho', () => {
@@ -8,7 +8,8 @@ describe('Carrinho', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Carrinho]
+      imports: [Carrinho],
+      providers: [provideToastr()],
     })
     .compileComponents();
 

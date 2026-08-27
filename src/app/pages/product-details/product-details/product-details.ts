@@ -62,7 +62,6 @@ export class ProductDetails implements OnInit {
   nextProduct() {
     const item = this.produto();
     if (item?.id !== undefined) {
-      // this.carregarProduto(item.id += 1)
       this.navigation((item.id += 1));
     }
   }
@@ -70,7 +69,6 @@ export class ProductDetails implements OnInit {
   previousProduct() {
     const item = this.produto();
     if (item?.id !== undefined) {
-      // this.carregarProduto(item.id -= 1)
       this.navigation((item.id -= 1));
     }
   }
@@ -80,7 +78,7 @@ export class ProductDetails implements OnInit {
     if ((stock ?? 0) > 0) {
       this.carrinhoService.addToCart(item);
       this.produtoService.uptadeStock(item.id!,(stock - 1))
-      this.toast.success('Adiocionado ao carrinho', '', {
+      this.toast.success('Adicionado ao carrinho', '', {
         timeOut: 3500,
         progressBar: true,
         positionClass: 'toast-bottom-right',
