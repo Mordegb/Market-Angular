@@ -1,6 +1,7 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { Login } from './login';
+import { provideRouter } from '@angular/router';
+import { provideToastr } from 'ngx-toastr';
 
 describe('Login', () => {
   let component: Login;
@@ -8,9 +9,9 @@ describe('Login', () => {
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [Login]
-    })
-    .compileComponents();
+      imports: [Login],
+      providers: [provideRouter([]), provideToastr()],
+    }).compileComponents();
 
     fixture = TestBed.createComponent(Login);
     component = fixture.componentInstance;
