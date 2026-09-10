@@ -13,7 +13,7 @@ import { ProdutoService } from '../../../service/produto/produto.service';
 })
 export class Carrinho implements OnInit {
   private carrinhoService = inject(CarrinhoService);
-  private toats = inject(ToastrService);
+  private toast = inject(ToastrService);
   private produtoService = inject(ProdutoService)
   itensNoCarrinho: ItemCarrinho[] = [];
   isLoading = this.carrinhoService.isLoading
@@ -39,7 +39,7 @@ export class Carrinho implements OnInit {
     const originalStock = this.produtoService.getOriginalStock(id)
     this.carrinhoService.removeFromCart(id);
     this.updateList();
-    this.toats.warning('Produto removido', '', {
+    this.toast.warning('Produto removido', '', {
       timeOut: 4000,
       progressBar: true,
       positionClass: 'toast-bottom-right',
@@ -49,7 +49,7 @@ export class Carrinho implements OnInit {
 
   purchase(finalValue:number): void {
     this.carrinhoService.clearCart();
-    this.toats.success(`compra de ${finalValue}R$ efetuda`);
+    this.toast.success(`compra de ${finalValue}R$ efetuda`);
     this.updateList();
   }
 
