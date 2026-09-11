@@ -3,11 +3,28 @@
 
 :root {
   --primaryBG: #efeff6;
+  --primaryColor: #0e6ae9;
+  --secondaryBG: #ffffff;
   --priceProduct: #068906;
-  --primaryColor: #0152c3
+  --logoColor: #063679;
+  --borderColor: #000000;
+  --textColor:#000000;
+  --focusColor: #0e6ae9;
 }
 
-*{
+body.dark-mode {
+  --primaryColor: #0e6ae9;
+  --primaryBG: #1f2027;
+  --secondaryBG: #2c2d3a;
+  --priceProduct: #3ddc3d;
+  --logoColor: #063679;
+  --borderColor: #d5d1d1;
+  --textColor:#efeff3;
+  --focusColor: #006aff;
+
+}
+
+* {
   margin: 0;
   padding: 0;
 }

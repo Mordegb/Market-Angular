@@ -12,12 +12,23 @@
           placeholder="Senha"
           formControlName="UserPassword"
         />
-        <img
+        @if (isDark()) {
+           <img
+          [src]="inputType === 'password' ? 'eye.svg' : 'eyeOff.svg'"
+          (click)="switchType()"
+          alt="mostrar ou ocultar senha"
+          class="toggle-senha"
+        />
+        }
+        @else {
+          <img
           [src]="inputType === 'password' ? 'darkEye.svg' : 'darkEyeOff.svg'"
           (click)="switchType()"
           alt="mostrar ou ocultar senha"
           class="toggle-senha"
         />
+        }
+        
       </div>
 
       <button
@@ -41,7 +52,7 @@
     </div>
 
     <div class="logo-mobile">
-      <img src="logo.svg" alt="Market Polo" />
+      <img src="logo.svg" (click)="switchTheme()" alt="Market Polo" />
     </div>
   </div>
 </div>

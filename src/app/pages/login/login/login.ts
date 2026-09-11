@@ -1,4 +1,4 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject, signal , OnInit} from '@angular/core';
 import {
   FormsModule,
   FormControl,
@@ -10,6 +10,7 @@ import { Router } from '@angular/router';
 import { UserService } from '../../../service/user/user.service';
 import { AuthService } from '../../../service/auth/auth.service';
 import { ToastrService } from 'ngx-toastr';
+import { ThemeService } from '../../../service/themeService/theme.service';
 
 @Component({
   selector: 'app-login',
@@ -23,6 +24,12 @@ export class Login {
   authService = inject(AuthService);
   toast = inject(ToastrService);
   isLoading = signal(false);
+  themeService = inject(ThemeService)
+  isDark = this.themeService.isDark;
+
+  ngOnInit():void{
+    this.logout( )
+  }
 
   loginForm = new FormGroup({
     //vai criar as coisas do grupo que tem que validar
@@ -84,6 +91,10 @@ export class Login {
 
   logout() {
     this.authService.logout();
+  }
+
+  switchTheme(){ 
+    this.themeService.toggleTheme()
   }
 
   fazerLogin() {

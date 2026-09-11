@@ -100,7 +100,8 @@ export class AuthService {
     this.tokenSig.set(null);
     this.userSig.set(null);
     if (isPlatformBrowser(this.plataformID)) {
-      localStorage.clear()
+      localStorage.removeItem("accessToken")
+      localStorage.removeItem("userDates")
     }
   }
 }
