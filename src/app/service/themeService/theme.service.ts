@@ -21,11 +21,11 @@ export class ThemeService {
   }
 
   toggleTheme() {
-    const novoValor = !this.darkModeSig();
-    this.darkModeSig.set(novoValor);
-    this.applyClass(novoValor);
+    const newValue = !this.darkModeSig();
+    this.darkModeSig.set(newValue);
+    this.applyClass(newValue);
     if (isPlatformBrowser(this.plataformID)) {
-      localStorage.setItem(THEME_KEY, String(novoValor));
+      localStorage.setItem(THEME_KEY, String(newValue));
     }
   }
 

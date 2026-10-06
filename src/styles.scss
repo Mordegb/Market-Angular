@@ -10,17 +10,19 @@
   --borderColor: #000000;
   --textColor:#000000;
   --focusColor: #0e6ae9;
+  --borderCardColor: #ddd;
 }
 
 body.dark-mode {
   --primaryColor: #0e6ae9;
   --primaryBG: #1f2027;
-  --secondaryBG: #2c2d3a;
+  --secondaryBG: #333547;
   --priceProduct: #3ddc3d;
   --logoColor: #063679;
   --borderColor: #d5d1d1;
   --textColor:#efeff3;
   --focusColor: #006aff;
+  --borderCardColor: #333547;
 
 }
 

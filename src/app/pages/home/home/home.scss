@@ -38,8 +38,8 @@
 }
 
 .card-produto {
-  background-color: white;
-  border: 2px solid #ddd; 
+  background-color: var(--secondaryBG);
+  border: 1px solid var(--borderCardColor); 
   border-radius: 8px;     
   padding: 15px;
   text-align: center;     
@@ -60,7 +60,7 @@
 .card-produto h2 {
   font-size: 1.2rem;
   margin: 10px 0;
-  color: #333;
+  color: var(--textColor);
 }
 
 .preco {
@@ -72,4 +72,5 @@
 
 .estoque {
   margin-bottom: 12px; 
+  color: var(--textColor);
 }
